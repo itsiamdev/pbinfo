@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rezolvări PBInfo - Căutare Probleme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,269 +12,494 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #6c5ce7;
+            --accent: #00cec9;
+            --bg-dark: #0a0a0f;
+            --bg-card: #13131f;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
             min-height: 100vh;
-            color: #e0e0e0;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 206, 201, 0.1) 0%, transparent 60%);
+            filter: blur(60px);
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
         header {
             text-align: center;
-            padding: 40px 0 20px;
+            padding: 60px 0 40px;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        header .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 212, 170, 0.15);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--primary);
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
         }
 
         header h1 {
-            font-size: 2.2em;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
-            margin-bottom: 8px;
+            font-size: 3em;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
         }
 
         header p {
-            color: #aaa;
-            font-size: 1.05em;
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .search-section {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-            backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(0, 212, 170, 0.05),
+                transparent 30%
+            );
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .search-section > * {
+            position: relative;
+            z-index: 1;
         }
 
         .search-section label {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 1.1em;
-            margin-bottom: 12px;
-            color: #ccc;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: var(--text-primary);
         }
 
         .search-box {
             display: flex;
             gap: 12px;
-            align-items: center;
+            align-items: stretch;
         }
 
         .search-box input {
             flex: 1;
-            padding: 14px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            font-size: 1.1em;
+            padding: 18px 24px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-primary);
+            font-size: 1.05em;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
         .search-box input:focus {
-            border-color: #64b5f6;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 212, 170, 0.1), 0 8px 30px rgba(0, 212, 170, 0.15);
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .search-box input::placeholder {
-            color: #888;
+            color: var(--text-secondary);
+            opacity: 0.6;
         }
 
         .search-btn {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #42a5f5, #1e88e5);
-            color: #fff;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--bg-dark);
             border: none;
-            border-radius: 10px;
-            font-size: 1.05em;
+            border-radius: 14px;
+            font-size: 1em;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .search-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
         }
 
         .stats {
             display: flex;
-            gap: 30px;
-            margin-top: 15px;
+            gap: 20px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px;
-            border-radius: 8px;
+            flex: 1;
+            min-width: 140px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 18px;
             text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .stat-item:nth-child(2) { animation-delay: 0.45s; }
+        .stat-item:nth-child(3) { animation-delay: 0.5s; }
+
+        .stat-item:hover {
+            border-color: rgba(0, 212, 170, 0.3);
+            transform: translateY(-2px);
         }
 
         .stat-item .stat-num {
-            font-size: 1.6em;
-            font-weight: bold;
-            color: #64b5f6;
+            font-size: 2em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-item .stat-label {
             font-size: 0.85em;
-            color: #999;
-            margin-top: 2px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
         }
 
         .problems-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .problem-card {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
             overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.5s ease-out both;
+            position: relative;
+        }
+
+        .problem-card:nth-child(n) { animation-delay: calc(0.05s * var(--i)); }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .problem-card:hover::before {
+            opacity: 1;
         }
 
         .problem-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(100, 181, 246, 0.4);
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(0, 212, 170, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(0, 212, 170, 0.1);
+        }
+
+        .problem-card.open {
+            border-color: rgba(0, 212, 170, 0.4);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(0, 212, 170, 0.15);
         }
 
         .problem-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 22px 24px;
+            background: rgba(255, 255, 255, 0.02);
             cursor: pointer;
             user-select: none;
+            transition: background 0.3s ease;
         }
 
         .problem-header:hover {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .problem-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .problem-number {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #64b5f6;
+            font-size: 1.4em;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 20px rgba(0, 212, 170, 0.4);
         }
 
         .problem-title {
-            font-size: 0.95em;
-            color: #bbb;
-            flex: 1;
-            margin-left: 15px;
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0.3px;
         }
 
         .toggle-icon {
-            color: #888;
-            font-size: 1.2em;
-            transition: transform 0.3s;
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover .toggle-icon {
+            color: var(--primary);
         }
 
         .problem-card.open .toggle-icon {
             transform: rotate(180deg);
+            color: var(--primary);
         }
 
         .problem-body {
-            display: none;
-            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .problem-card.open .problem-body {
-            display: block;
+            max-height: 800px;
         }
 
         .code-wrapper {
             position: relative;
-            background: #1e1e1e;
-            padding: 0;
+            padding: 20px 24px 24px;
         }
 
         .code-wrapper pre {
             margin: 0;
-            padding: 18px 20px;
+            padding: 20px;
+            background: #0d0d12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
             overflow-x: auto;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.92em;
-            line-height: 1.6;
-            color: #d4d4d4;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.7;
+            color: #e0e0e0;
             white-space: pre;
+            position: relative;
+        }
+
+        .code-filename {
+            display: block;
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .copy-btn {
             position: absolute;
-            top: 8px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ccc;
-            padding: 5px 12px;
-            border-radius: 6px;
+            top: 12px;
+            right: 16px;
+            padding: 8px 16px;
+            background: rgba(0, 212, 170, 0.15);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--primary);
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.82em;
-            transition: background 0.3s;
+            font-size: 0.8em;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
             z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.22);
-            color: #fff;
+            background: rgba(0, 212, 170, 0.25);
+            border-color: rgba(0, 212, 170, 0.5);
+            transform: scale(1.05);
         }
 
         .copy-btn.copied {
-            background: rgba(76, 175, 80, 0.4);
-            color: #fff;
-            border-color: rgba(76, 175, 80, 0.6);
-        }
-
-        .code-filename {
-            position: absolute;
-            top: 8px;
-            left: 10px;
-            color: #888;
-            font-size: 0.8em;
-            font-family: 'Consolas', 'Courier New', monospace;
-            z-index: 2;
+            background: rgba(46, 213, 115, 0.2);
+            border-color: rgba(46, 213, 115, 0.5);
+            color: #2ed573;
         }
 
         .no-results {
             text-align: center;
-            padding: 60px 20px;
-            color: #888;
-            font-size: 1.15em;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+            animation: fadeInUp 0.4s ease-out;
         }
 
         .no-results span {
-            font-size: 2.5em;
+            font-size: 4em;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            opacity: 0.5;
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px 0;
-            color: #666;
+            padding: 40px 0 20px;
+            color: var(--text-secondary);
             font-size: 0.9em;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
         }
 
-        @media (max-width: 600px) {
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
             header h1 {
-                font-size: 1.5em;
+                font-size: 2.2em;
             }
 
             .search-box {
                 flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
             }
 
             .problems-grid {
@@ -281,22 +507,47 @@
             }
 
             .stat-item {
-                padding: 8px 14px;
+                min-width: 100%;
             }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 212, 170, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 212, 170, 0.5);
         }
     </style>
 </head>
 <body>
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+
     <div class="container">
         <header>
-            <h1>📚 Rezolvări PBInfo</h1>
-            <p>Caută problemele după număr sau titlu</p>
+            <span class="badge">Code Solutions</span>
+            <h1>Rezolvări PBInfo</h1>
+            <p>Caută problemele după număr sau titlu • Clasa a 9-a • Operatori și expresii</p>
         </header>
 
         <div class="search-section">
-            <label for="searchInput">🔍 Caută problemă după număr sau titlu:</label>
+            <label>
+                <span>🔍</span> Caută problemă
+            </label>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ex: 3180 sau operații">
+                <input type="text" id="searchInput" placeholder="Ex: 3180, operații, suma..." autofocus>
                 <button class="search-btn" onclick="clearSearch()">Golește</button>
             </div>
             <div class="stats">
@@ -309,8 +560,8 @@
                     <div class="stat-label">Rezultate afișate</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-num">Clasa a 9-a</div>
-                    <div class="stat-label">Clasa curentă</div>
+                    <div class="stat-num">9-a</div>
+                    <div class="stat-label">Clasa</div>
                 </div>
             </div>
         </div>
@@ -318,7 +569,8 @@
         <div class="problems-grid" id="problemsGrid"></div>
 
         <footer>
-            <p>Rezolvări PBInfo &mdash; Clasa a 9-a &middot; Elemente de bază ale limbajului &middot; Operatori și expresii</p>
+            <p>Rezolvări PBInfo &mdash; Clasa a 9-a • Elemente de bază ale limbajului • Operatori și expresii</p>
+            <p style="margin-top: 10px; opacity: 0.6;">Cu ❤️ pentru programatori</p>
         </footer>
     </div>
 
@@ -327,86 +579,86 @@
             {
                 number: "813",
                 title: "Perimetrul dreptunghiului",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/813.cpp",
-                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int a;\n    cin >> a;\n    cout << a + 2 * a + 2 * a - 3;\n    return 0;\n    }`
+                filename: "813.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int a;\n    cin >> a;\n    cout << a + 2 * a + 2 * a - 3;\n    return 0;\n}`
             },
             {
                 number: "814",
                 title: "Aria dreptunghiului",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/814.cpp",
-                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int x, y;\n    cin >> x >> y;\n    cout << 3 * y - x;\n    return 0;\n    }`
+                filename: "814.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int x, y;\n    cin >> x >> y;\n    cout << 3 * y - x;\n    return 0;\n}`
             },
             {
                 number: "939",
                 title: "La mulți ani!",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/939.cpp",
+                filename: "939.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a + b;\n    return 0;\n}`
             },
             {
                 number: "941",
                 title: "La mulți ani!",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/941.cpp",
+                filename: "941.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout << "La multi ani!";\n    return 0;\n}`
             },
             {
                 number: "1258",
                 title: "Scăderea a două numere",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1258.cpp",
+                filename: "1258.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a - b;\n    return 0;\n}`
             },
             {
                 number: "1260",
                 title: "Operații pe a și b",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1260.cpp",
+                filename: "1260.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << " " << a - b << " " << a * b << " " << a / b;\n    return 0;\n}`
             },
             {
                 number: "1273",
                 title: "Ultima cifră a sumei",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1273.cpp",
+                filename: "1273.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b, s = 0;\n    cin >> a >> b;\n    s = a + b;\n    int n = s % 10;\n    cout << n;\n    return 0;\n}`
             },
             {
                 number: "2240",
                 title: "C, P, G, T",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/2240.cpp",
-                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int C, P, G, T;\n    cin >> C;\n    P = 2 * C;\n    G = 2 * P;\n    T = C + P + G;\n    cout << T;\n    \n    return 0;\n}`
+                filename: "2240.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int C, P, G, T;\n    cin >> C;\n    P = 2 * C;\n    G = 2 * P;\n    T = C + P + G;\n    cout << T;\n    return 0;\n}`
             },
             {
                 number: "2263",
                 title: "Timp total de lucru",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/2263.cpp",
-                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int t1, t2, n, m, z;\n    cin >> t1 >> t2 >> n >> m >> z;\n    \n    int a = t1 * n + t2 * m;\n    int t = a * z;\n    \n    cout << t;\n    \n    return 0;\n}`
+                filename: "2263.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int t1, t2, n, m, z;\n    cin >> t1 >> t2 >> n >> m >> z;\n    int a = t1 * n + t2 * m;\n    int t = a * z;\n    cout << t;\n    return 0;\n}`
             },
             {
                 number: "3178",
                 title: "Expresie cu f, b, n",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3178.cpp",
+                filename: "3178.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int f, b, n;\n    cin >> f >> b >> n;\n    n = 3 * f * n + 2 * b * n;\n    cout << n;\n    return 0;\n}`
             },
             {
                 number: "3179",
                 title: "Puterea a 5-a",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3179.cpp",
+                filename: "3179.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int n;\n    cin >> n;\n    n = n * n * n * n * n;\n    cout << n;\n    return 0;\n}`
             },
             {
                 number: "3180",
                 title: "Expresie liniară",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3180.cpp",
+                filename: "3180.cpp",
                 code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b, c, n, m, p;\n    cin >> a >> b >> c; cin >> n >> m >> p;\n    cout << a * n + b * m + c * p;\n    return 0;\n}`
             },
             {
                 number: "3210",
                 title: "Număr cutii și rest",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3210.cpp",
+                filename: "3210.cpp",
                 code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int B, S;\n    cin >> B >> S;\n    int numCutii = 0, rest = 0;\n    while (S >= B) {\n        numCutii++;\n        S -= B;\n    }\n    rest = B - S;\n    cout << numCutii << " " << rest;\n    return 0;\n}`
             },
             {
                 number: "3978",
                 title: "Sume de intervale",
-                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3978.cpp",
-                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int s, a, b, c;\n    cin >> a >> b >> c;\n    // S(a, b) = S(1, b) - S(1, a-1)\n    s = b * (b + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    // S(b, c) = S(1, c) - S(1, b-1)\n    s = c * (c + 1) / 2 - b * (b - 1) / 2;\n    cout << s << " ";\n    // S(a, c) = S(1, c) - S(1, a-1)\n    s = c * (c + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    return 0;\n}`
+                filename: "3978.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int s, a, b, c;\n    cin >> a >> b >> c;\n    s = b * (b + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    s = c * (c + 1) / 2 - b * (b - 1) / 2;\n    cout << s << " ";\n    s = c * (c + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    return 0;\n}`
             }
         ];
 
@@ -419,19 +671,19 @@
         function renderProblems(list) {
             const grid = document.getElementById('problemsGrid');
             if (list.length === 0) {
-                grid.innerHTML = `<div class="no-results"><span>🔍</span>Nici o problemă găsită.<br>Încearcă alt număr sau titlu.</div>`;
+                grid.innerHTML = `<div class="no-results"><span>🔍</span><strong>Nici o problemă găsită</strong><br>Încearcă alt număr sau cuvânt cheie</div>`;
                 document.getElementById('visibleProblems').textContent = '0';
                 return;
             }
 
             document.getElementById('visibleProblems').textContent = list.length;
 
-            grid.innerHTML = list.map(p => {
+            grid.innerHTML = list.map((p, idx) => {
                 const escapedCode = escapeHtml(p.code);
                 return `
-                    <div class="problem-card" onclick="this.classList.toggle('open')">
+                    <div class="problem-card" style="--i: ${idx}" onclick="this.classList.toggle('open')">
                         <div class="problem-header">
-                            <div>
+                            <div class="problem-left">
                                 <span class="problem-number">#${p.number}</span>
                                 <span class="problem-title">${p.title}</span>
                             </div>
@@ -454,26 +706,25 @@
             if (!problem) return;
 
             navigator.clipboard.writeText(problem.code).then(() => {
-                btn.textContent = '✅ Copiat!';
+                btn.textContent = '✓ Copiat!';
                 btn.classList.add('copied');
                 setTimeout(() => {
                     btn.textContent = '📋 Copiază';
                     btn.classList.remove('copied');
-                }, 2000);
+                }, 1800);
             }).catch(() => {
-                // Fallback
                 const ta = document.createElement('textarea');
                 ta.value = problem.code;
                 document.body.appendChild(ta);
                 ta.select();
                 document.execCommand('copy');
                 document.body.removeChild(ta);
-                btn.textContent = '✅ Copiat!';
+                btn.textContent = '✓ Copiat!';
                 btn.classList.add('copied');
                 setTimeout(() => {
                     btn.textContent = '📋 Copiază';
                     btn.classList.remove('copied');
-                }, 2000);
+                }, 1800);
             });
         }
 
