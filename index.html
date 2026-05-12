@@ -1,13 +1,505 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pbinfo</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezolvări PBInfo - Căutare Probleme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 1.05em;
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-section label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            color: #ccc;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1.1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #64b5f6;
+        }
+
+        .search-box input::placeholder {
+            color: #888;
+        }
+
+        .search-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #42a5f5, #1e88e5);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-item .stat-num {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #64b5f6;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(100, 181, 246, 0.4);
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .problem-header:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .problem-number {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #64b5f6;
+        }
+
+        .problem-title {
+            font-size: 0.95em;
+            color: #bbb;
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .toggle-icon {
+            color: #888;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .problem-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .problem-body {
+            display: none;
+            padding: 0;
+        }
+
+        .problem-card.open .problem-body {
+            display: block;
+        }
+
+        .code-wrapper {
+            position: relative;
+            background: #1e1e1e;
+            padding: 0;
+        }
+
+        .code-wrapper pre {
+            margin: 0;
+            padding: 18px 20px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.92em;
+            line-height: 1.6;
+            color: #d4d4d4;
+            white-space: pre;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.82em;
+            transition: background 0.3s;
+            z-index: 2;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #fff;
+        }
+
+        .copy-btn.copied {
+            background: rgba(76, 175, 80, 0.4);
+            color: #fff;
+            border-color: rgba(76, 175, 80, 0.6);
+        }
+
+        .code-filename {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            color: #888;
+            font-size: 0.8em;
+            font-family: 'Consolas', 'Courier New', monospace;
+            z-index: 2;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            font-size: 1.15em;
+        }
+
+        .no-results span {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Rezolvări PBInfo</h1>
+            <p>Caută problemele după număr sau titlu</p>
+        </header>
+
+        <div class="search-section">
+            <label for="searchInput">🔍 Caută problemă după număr sau titlu:</label>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ex: 3180 sau operații">
+                <button class="search-btn" onclick="clearSearch()">Golește</button>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-num" id="totalProblems">14</div>
+                    <div class="stat-label">Probleme totale</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="visibleProblems">14</div>
+                    <div class="stat-label">Rezultate afișate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">Clasa a 9-a</div>
+                    <div class="stat-label">Clasa curentă</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="problems-grid" id="problemsGrid"></div>
+
+        <footer>
+            <p>Rezolvări PBInfo &mdash; Clasa a 9-a &middot; Elemente de bază ale limbajului &middot; Operatori și expresii</p>
+        </footer>
+    </div>
+
+    <script>
+        const problems = [
+            {
+                number: "813",
+                title: "Perimetrul dreptunghiului",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/813.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int a;\n    cin >> a;\n    cout << a + 2 * a + 2 * a - 3;\n    return 0;\n    }`
+            },
+            {
+                number: "814",
+                title: "Aria dreptunghiului",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/814.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int x, y;\n    cin >> x >> y;\n    cout << 3 * y - x;\n    return 0;\n    }`
+            },
+            {
+                number: "939",
+                title: "La mulți ani!",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/939.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a + b;\n    return 0;\n}`
+            },
+            {
+                number: "941",
+                title: "La mulți ani!",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/941.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout << "La multi ani!";\n    return 0;\n}`
+            },
+            {
+                number: "1258",
+                title: "Scăderea a două numere",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1258.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a - b;\n    return 0;\n}`
+            },
+            {
+                number: "1260",
+                title: "Operații pe a și b",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1260.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << " " << a - b << " " << a * b << " " << a / b;\n    return 0;\n}`
+            },
+            {
+                number: "1273",
+                title: "Ultima cifră a sumei",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/1273.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b, s = 0;\n    cin >> a >> b;\n    s = a + b;\n    int n = s % 10;\n    cout << n;\n    return 0;\n}`
+            },
+            {
+                number: "2240",
+                title: "C, P, G, T",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/2240.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int C, P, G, T;\n    cin >> C;\n    P = 2 * C;\n    G = 2 * P;\n    T = C + P + G;\n    cout << T;\n    \n    return 0;\n}`
+            },
+            {
+                number: "2263",
+                title: "Timp total de lucru",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/2263.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main(){\n    int t1, t2, n, m, z;\n    cin >> t1 >> t2 >> n >> m >> z;\n    \n    int a = t1 * n + t2 * m;\n    int t = a * z;\n    \n    cout << t;\n    \n    return 0;\n}`
+            },
+            {
+                number: "3178",
+                title: "Expresie cu f, b, n",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3178.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int f, b, n;\n    cin >> f >> b >> n;\n    n = 3 * f * n + 2 * b * n;\n    cout << n;\n    return 0;\n}`
+            },
+            {
+                number: "3179",
+                title: "Puterea a 5-a",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3179.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int n;\n    cin >> n;\n    n = n * n * n * n * n;\n    cout << n;\n    return 0;\n}`
+            },
+            {
+                number: "3180",
+                title: "Expresie liniară",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3180.cpp",
+                code: `#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    int a, b, c, n, m, p;\n    cin >> a >> b >> c; cin >> n >> m >> p;\n    cout << a * n + b * m + c * p;\n    return 0;\n}`
+            },
+            {
+                number: "3210",
+                title: "Număr cutii și rest",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3210.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int B, S;\n    cin >> B >> S;\n    int numCutii = 0, rest = 0;\n    while (S >= B) {\n        numCutii++;\n        S -= B;\n    }\n    rest = B - S;\n    cout << numCutii << " " << rest;\n    return 0;\n}`
+            },
+            {
+                number: "3978",
+                title: "Sume de intervale",
+                filename: "rezolvari pbinfo/clasa a 9-a/elemente de baza ale limbajului/Operatori și expresii/3978.cpp",
+                code: `#include <iostream>\nusing namespace std;\n\nint main()\n{\n    int s, a, b, c;\n    cin >> a >> b >> c;\n    // S(a, b) = S(1, b) - S(1, a-1)\n    s = b * (b + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    // S(b, c) = S(1, c) - S(1, b-1)\n    s = c * (c + 1) / 2 - b * (b - 1) / 2;\n    cout << s << " ";\n    // S(a, c) = S(1, c) - S(1, a-1)\n    s = c * (c + 1) / 2 - a * (a - 1) / 2;\n    cout << s << " ";\n    return 0;\n}`
+            }
+        ];
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderProblems(list) {
+            const grid = document.getElementById('problemsGrid');
+            if (list.length === 0) {
+                grid.innerHTML = `<div class="no-results"><span>🔍</span>Nici o problemă găsită.<br>Încearcă alt număr sau titlu.</div>`;
+                document.getElementById('visibleProblems').textContent = '0';
+                return;
+            }
+
+            document.getElementById('visibleProblems').textContent = list.length;
+
+            grid.innerHTML = list.map(p => {
+                const escapedCode = escapeHtml(p.code);
+                return `
+                    <div class="problem-card" onclick="this.classList.toggle('open')">
+                        <div class="problem-header">
+                            <div>
+                                <span class="problem-number">#${p.number}</span>
+                                <span class="problem-title">${p.title}</span>
+                            </div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="problem-body">
+                            <div class="code-wrapper">
+                                <span class="code-filename">${p.filename}</span>
+                                <button class="copy-btn" onclick="event.stopPropagation(); copyCode(this, \`${p.number}\`)">📋 Copiază</button>
+                                <pre><code>${escapedCode}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function copyCode(btn, number) {
+            const problem = problems.find(p => p.number === number);
+            if (!problem) return;
+
+            navigator.clipboard.writeText(problem.code).then(() => {
+                btn.textContent = '✅ Copiat!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copiază';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = problem.code;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.textContent = '✅ Copiat!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copiază';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderProblems(problems);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            if (!query) {
+                renderProblems(problems);
+                return;
+            }
+
+            const filtered = problems.filter(p =>
+                p.number.includes(query) ||
+                p.title.toLowerCase().includes(query) ||
+                p.filename.toLowerCase().includes(query)
+            );
+
+            renderProblems(filtered);
+        });
+
+        // Render all on load
+        renderProblems(problems);
+    </script>
+</body>
 </html>
