@@ -1,6 +1,5 @@
 import Header from './components/Header'
-import Hero from './components/Hero'
-import Features from './components/Features'
+import ProblemsSection from './components/ProblemsSection'
 import Footer from './components/Footer'
 import './App.css'
 
@@ -9,8 +8,7 @@ function App() {
     <div className="app">
       <Header />
       <main>
-        <Hero />
-        <Features />
+        <ProblemsSection />
       </main>
       <Footer />
     </div>

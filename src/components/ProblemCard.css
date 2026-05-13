@@ -1,0 +1,185 @@
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  animation: fadeInUp 0.5s ease-out both;
+  position: relative;
+  cursor: pointer;
+}
+
+.problem-card:nth-child(n) {
+  animation-delay: calc(0.05s * var(--i));
+}
+
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.problem-card:hover::before {
+  opacity: 1;
+}
+
+.problem-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(0, 212, 170, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(0, 212, 170, 0.1);
+}
+
+.problem-card.open {
+  border-color: rgba(0, 212, 170, 0.4);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(0, 212, 170, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  user-select: none;
+  transition: background 0.3s ease;
+}
+
+.problem-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.problem-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.problem-number {
+  font-size: 1.4em;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: var(--mono);
+  text-shadow: 0 0 20px rgba(0, 212, 170, 0.4);
+}
+
+.problem-title {
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+.toggle-icon {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+}
+
+.problem-card:hover .toggle-icon {
+  color: var(--primary);
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.problem-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.problem-card.open .problem-body {
+  max-height: 800px;
+}
+
+.code-wrapper {
+  position: relative;
+  padding: 20px 24px 24px;
+}
+
+.code-wrapper pre {
+  margin: 0;
+  padding: 20px;
+  background: #0d0d12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.9em;
+  line-height: 1.7;
+  color: #e0e0e0;
+  white-space: pre;
+}
+
+.code-filename {
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--mono);
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  padding: 8px 16px;
+  background: rgba(0, 212, 170, 0.15);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  color: var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: 600;
+  font-family: var(--sans);
+  transition: all 0.3s ease;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.copy-btn:hover {
+  background: rgba(0, 212, 170, 0.25);
+  border-color: rgba(0, 212, 170, 0.5);
+  transform: scale(1.05);
+}
+
+.copy-btn.copied {
+  background: rgba(46, 213, 115, 0.2);
+  border-color: rgba(46, 213, 115, 0.5);
+  color: #2ed573;
+}
+
+@media (max-width: 768px) {
+  .problem-header {
+    padding: 18px;
+  }
+
+  .problem-number {
+    font-size: 1.2em;
+  }
+
+  .problem-title {
+    font-size: 0.9em;
+  }
+
+  .code-wrapper {
+    padding: 15px;
+  }
+
+  .code-wrapper pre {
+    padding: 15px;
+    font-size: 0.8em;
+  }
+}
