@@ -31,13 +31,13 @@
 
 .problem-card:hover {
   transform: translateY(-6px) scale(1.01);
-  border-color: rgba(0, 212, 170, 0.25);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(0, 212, 170, 0.1);
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(59, 130, 246, 0.1);
 }
 
 .problem-card.open {
-  border-color: rgba(0, 212, 170, 0.4);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(0, 212, 170, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(59, 130, 246, 0.15);
 }
 
 .problem-header {
@@ -65,7 +65,7 @@
   font-weight: 800;
   color: var(--primary);
   font-family: var(--mono);
-  text-shadow: 0 0 20px rgba(0, 212, 170, 0.4);
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
 .problem-title {
@@ -135,8 +135,8 @@
   top: 12px;
   right: 16px;
   padding: 8px 16px;
-  background: rgba(0, 212, 170, 0.15);
-  border: 1px solid rgba(0, 212, 170, 0.3);
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   color: var(--primary);
   border-radius: 8px;
   cursor: pointer;
@@ -150,8 +150,8 @@
 }
 
 .copy-btn:hover {
-  background: rgba(0, 212, 170, 0.25);
-  border-color: rgba(0, 212, 170, 0.5);
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.5);
   transform: scale(1.05);
 }
 

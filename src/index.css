@@ -1,8 +1,8 @@
 :root {
-  --primary: #00d4aa;
-  --primary-dark: #00b894;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
   --secondary: #6c5ce7;
-  --accent: #00cec9;
+  --accent: #0ea5e9;
   --bg-dark: #0a0a0f;
   --bg-card: #13131f;
   --text-primary: #ffffff;
@@ -49,9 +49,9 @@ body {
   height: 100vh;
   z-index: -1;
   background:
-    radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 80%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(0, 206, 201, 0.1) 0%, transparent 60%);
+    radial-gradient(ellipse at 50% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 60%);
   filter: blur(60px);
 }
 
@@ -112,11 +112,11 @@ body {
   background: var(--bg-dark);
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 170, 0.3);
-  border-radius: 4px;
-}
+ ::-webkit-scrollbar-thumb {
+   background: rgba(59, 130, 246, 0.3);
+   border-radius: 4px;
+ }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 170, 0.5);
-}
+ ::-webkit-scrollbar-thumb:hover {
+   background: rgba(59, 130, 246, 0.5);
+ }

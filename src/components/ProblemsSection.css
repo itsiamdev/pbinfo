@@ -20,7 +20,7 @@
   background: conic-gradient(
     from 0deg,
     transparent,
-    rgba(0, 212, 170, 0.05),
+    rgba(59, 130, 246, 0.05),
     transparent 30%
   );
   animation: rotate 10s linear infinite;
@@ -68,7 +68,7 @@
 
 .search-box input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(0, 212, 170, 0.1), 0 8px 30px rgba(0, 212, 170, 0.15);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 30px rgba(59, 130, 246, 0.15);
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -94,7 +94,7 @@
 
 .search-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
 }
 
 .search-btn:active {
@@ -124,7 +124,7 @@
 .stat-item:nth-child(3) { animation-delay: 0.5s; }
 
 .stat-item:hover {
-  border-color: rgba(0, 212, 170, 0.3);
+  border-color: rgba(59, 130, 246, 0.3);
   transform: translateY(-2px);
 }
 
