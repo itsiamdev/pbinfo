@@ -31,13 +31,13 @@
 
 .problem-card:hover {
   transform: translateY(-6px) scale(1.01);
-  border-color: rgba(59, 130, 246, 0.25);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-alpha-25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 8px 30px var(--primary-alpha-10);
 }
 
 .problem-card.open {
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(59, 130, 246, 0.15);
+  border-color: var(--primary-alpha-40);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 10px 40px var(--primary-alpha-15);
 }
 
 .problem-header {
@@ -45,13 +45,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 22px 24px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--card-header-bg);
   user-select: none;
   transition: background 0.3s ease;
 }
 
 .problem-header:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-header-hover-bg);
 }
 
 .problem-left {
@@ -65,7 +65,7 @@
   font-weight: 800;
   color: var(--primary);
   font-family: var(--mono);
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  text-shadow: 0 0 20px var(--primary-alpha-40);
 }
 
 .problem-title {
@@ -94,7 +94,7 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--card-body-bg);
 }
 
 .problem-card.open .problem-body {
@@ -109,15 +109,16 @@
 .code-wrapper pre {
   margin: 0;
   padding: 20px;
-  background: #0d0d12;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
   border-radius: 12px;
   overflow-x: auto;
   font-family: var(--mono);
   font-size: 0.9em;
   line-height: 1.7;
-  color: #e0e0e0;
+  color: var(--text-primary);
   white-space: pre;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .code-filename {
@@ -135,8 +136,8 @@
   top: 12px;
   right: 16px;
   padding: 8px 16px;
-  background: rgba(59, 130, 246, 0.15);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: var(--primary-alpha-15);
+  border: 1px solid var(--primary-alpha-30);
   color: var(--primary);
   border-radius: 8px;
   cursor: pointer;
@@ -150,8 +151,8 @@
 }
 
 .copy-btn:hover {
-  background: rgba(59, 130, 246, 0.25);
-  border-color: rgba(59, 130, 246, 0.5);
+  background: var(--primary-alpha-25);
+  border-color: var(--primary-alpha-50);
   transform: scale(1.05);
 }
 
