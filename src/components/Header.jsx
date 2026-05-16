@@ -8,8 +8,10 @@ function Header() {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <span className="logo-icon">📚</span>
-          <span>PBInfo</span>
+          <span className="logo-icon">
+            <img src="public/image.png" alt="PBInfo Logo" />
+          </span>
+          <span>pbinfo</span>
         </div>
         <nav className="nav">
           <a href="#problems">Probleme</a>

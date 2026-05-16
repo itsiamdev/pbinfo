@@ -23,11 +23,17 @@
   gap: 10px;
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--primary);
 }
 
 .logo-icon {
   font-size: 1.8rem;
+}
+
+.logo-icon img {
+  height: 32px;
+  width: auto;
+  filter: var(--logo-filter, none);
 }
 
 .nav {
@@ -88,51 +94,10 @@
     font-size: 1rem;
     padding: 6px 10px;
   }
-}
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.logo-icon {
-  font-size: 1.8rem;
-}
-
-.nav {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav a:hover {
-  color: var(--primary);
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    padding: 0.75rem 1rem;
-  }
-
-  .logo {
-    font-size: 1.25rem;
-  }
-
-  .nav {
-    gap: 1rem;
-  }
-
-  .nav a {
-    font-size: 0.9rem;
+  .logo-icon img {
+    height: 28px;
+    width: auto;
+    filter: var(--logo-filter, none);
   }
 }
