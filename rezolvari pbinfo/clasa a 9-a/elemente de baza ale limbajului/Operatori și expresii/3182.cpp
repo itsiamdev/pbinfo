@@ -8,6 +8,5 @@ int main()
     cin>>z>>n;
     int l = n/z;
     cout<<l<<endl;
-    
     return 0;
 }
