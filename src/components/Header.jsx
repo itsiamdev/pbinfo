@@ -1,4 +1,5 @@
 import './Header.css'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../contexts/useTheme.js'
 
 function Header() {
@@ -14,8 +15,8 @@ function Header() {
           <span>pbinfo</span>
         </div>
         <nav className="nav">
-          <a href="#problems">Probleme</a>
-          <a href="#about">Despre</a>
+          <Link to="/">Probleme</Link>
+          <Link to="/despre">Despre</Link>
         </nav>
         <button 
           className="theme-toggle"
