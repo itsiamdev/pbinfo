@@ -37,18 +37,22 @@ function ProblemCard({ problem, index }) {
         <div className="problem-left">
           <span className="problem-number">#{problem.number}</span>
           <span className="problem-title">{problem.title}</span>
+          <span className="problem-meta">C++ • Clasa a IX-a</span>
         </div>
         <span className={`toggle-icon ${isOpen ? 'rotated' : ''}`}>▼</span>
       </div>
       <div className={`problem-body ${isOpen ? 'open' : ''}`}>
         <div className="code-wrapper">
-          <span className="code-filename">{problem.filename}</span>
-          <button
-            className={`copy-btn ${copied ? 'copied' : ''}`}
-            onClick={handleCopy}
-          >
-            {copied ? '✓ Copiat!' : '📋 Copiază'}
-          </button>
+          <div className="code-toolbar">
+            <span className="code-filename">{problem.filename}</span>
+            <button
+              className={`copy-btn ${copied ? 'copied' : ''}`}
+              onClick={handleCopy}
+              type="button"
+            >
+              {copied ? 'Copiat' : 'Copiază'}
+            </button>
+          </div>
           <pre>
             <code>{problem.code}</code>
           </pre>

@@ -1,12 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import ProblemCard from './ProblemCard'
 import './ProblemsSection.css'
 
 const problems = [
   {
-    number: "813",
-    title: "Perimetrul dreptunghiului",
-    filename: "813.cpp",
+    number: '813',
+    title: 'Perimetrul dreptunghiului',
+    filename: '813.cpp',
     code: `#include <iostream>
 using namespace std;
 
@@ -19,9 +19,9 @@ int main()
 }`
   },
   {
-    number: "814",
-    title: "Aria dreptunghiului",
-    filename: "814.cpp",
+    number: '814',
+    title: 'Aria dreptunghiului',
+    filename: '814.cpp',
     code: `#include <iostream>
 using namespace std;
 
@@ -34,9 +34,9 @@ int main()
 }`
   },
   {
-    number: "939",
-    title: "La mulți ani!",
-    filename: "939.cpp",
+    number: '939',
+    title: 'La mulți ani!',
+    filename: '939.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -50,9 +50,9 @@ int main()
 }`
   },
   {
-    number: "941",
-    title: "La mulți ani!",
-    filename: "941.cpp",
+    number: '941',
+    title: 'La mulți ani!',
+    filename: '941.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -64,9 +64,9 @@ int main()
 }`
   },
   {
-    number: "1258",
-    title: "Scăderea a două numere",
-    filename: "1258.cpp",
+    number: '1258',
+    title: 'Scăderea a două numere',
+    filename: '1258.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -80,9 +80,9 @@ int main()
 }`
   },
   {
-    number: "1260",
-    title: "Operații pe a și b",
-    filename: "1260.cpp",
+    number: '1260',
+    title: 'Operații pe a și b',
+    filename: '1260.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -96,9 +96,9 @@ int main()
 }`
   },
   {
-    number: "1273",
-    title: "Ultima cifră a sumei",
-    filename: "1273.cpp",
+    number: '1273',
+    title: 'Ultima cifră a sumei',
+    filename: '1273.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -114,9 +114,9 @@ int main()
 }`
   },
   {
-    number: "2240",
-    title: "C, P, G, T",
-    filename: "2240.cpp",
+    number: '2240',
+    title: 'C, P, G, T',
+    filename: '2240.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -132,9 +132,9 @@ int main(){
 }`
   },
   {
-    number: "2263",
-    title: "Timp total de lucru",
-    filename: "2263.cpp",
+    number: '2263',
+    title: 'Timp total de lucru',
+    filename: '2263.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -149,9 +149,9 @@ int main(){
 }`
   },
   {
-    number: "3178",
-    title: "Expresie cu f, b, n",
-    filename: "3178.cpp",
+    number: '3178',
+    title: 'Expresie cu f, b, n',
+    filename: '3178.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -166,9 +166,9 @@ int main()
 }`
   },
   {
-    number: "3179",
-    title: "Puterea a 5-a",
-    filename: "3179.cpp",
+    number: '3179',
+    title: 'Puterea a 5-a',
+    filename: '3179.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -183,9 +183,9 @@ int main()
 }`
   },
   {
-    number: "3180",
-    title: "Expresie liniară",
-    filename: "3180.cpp",
+    number: '3180',
+    title: 'Expresie liniară',
+    filename: '3180.cpp',
     code: `#include <iostream>
 
 using namespace std;
@@ -199,9 +199,9 @@ int main()
 }`
   },
   {
-    number: "3210",
-    title: "Număr cutii și rest",
-    filename: "3210.cpp",
+    number: '3210',
+    title: 'Număr cutii și rest',
+    filename: '3210.cpp',
     code: `#include <iostream>
 using namespace std;
 
@@ -220,9 +220,9 @@ int main()
 }`
   },
   {
-    number: "3978",
-    title: "Sume de intervale",
-    filename: "3978.cpp",
+    number: '3978',
+    title: 'Sume de intervale',
+    filename: '3978.cpp',
     code: `#include <iostream>
 using namespace std;
 
@@ -239,7 +239,7 @@ int main()
     return 0;
 }`
   }
-];
+]
 
 function ProblemsSection() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -261,23 +261,39 @@ function ProblemsSection() {
   return (
     <section className="problems-section">
       <div className="container">
-        <div className="search-section">
-          <label className="search-label">
-            <span className="search-icon">🔍</span>
-            Caută problemă
-          </label>
+        <div className="search-section" id="probleme">
+          <div className="search-topline">
+            <div>
+              <label className="search-label" htmlFor="problem-search">
+                <span className="search-icon" aria-hidden="true">⌕</span>
+                Caută problemă
+              </label>
+              <p className="search-hint">Folosește numărul, titlul sau numele fișierului.</p>
+            </div>
+            <span className="live-count">{filteredProblems.length} rezultate</span>
+          </div>
+
           <div className="search-box">
             <input
+              id="problem-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Ex: 3180, operații, suma..."
               autoFocus
             />
-            <button className="search-btn" onClick={handleClearSearch}>
+            <button className="search-btn" onClick={handleClearSearch} type="button">
               Golește
             </button>
           </div>
+
+          <div className="topic-chips" aria-label="Teme disponibile">
+            <span>Operatori și expresii</span>
+            <span>Structura de decizie</span>
+            <span>Input / Output</span>
+            <span>Bucle</span>
+          </div>
+
           <div className="stats">
             <div className="stat-item">
               <div className="stat-num">{problems.length}</div>
@@ -288,8 +304,8 @@ function ProblemsSection() {
               <div className="stat-label">Rezultate afișate</div>
             </div>
             <div className="stat-item">
-              <div className="stat-num">9-a</div>
-              <div className="stat-label">Clasa</div>
+              <div className="stat-num">C++</div>
+              <div className="stat-label">Limbaj</div>
             </div>
           </div>
         </div>
@@ -297,7 +313,7 @@ function ProblemsSection() {
         <div className="problems-grid">
           {filteredProblems.length === 0 ? (
             <div className="no-results">
-              <span>🔍</span>
+              <span>⌕</span>
               <strong>Nici o problemă găsită</strong>
               <br />
               Încearcă alt număr sau cuvânt cheie

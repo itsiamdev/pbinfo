@@ -8,13 +8,13 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="logo">
-          <span className="logo-icon">
-            <img src="public/image.png" alt="PBInfo Logo" />
+        <Link to="/" className="logo" aria-label="pbinfo acasă">
+          <span className="logo-mark">
+            <img src="/image.png" alt="PBInfo Logo" />
           </span>
           <span>pbinfo</span>
-        </div>
-        <nav className="nav">
+        </Link>
+        <nav className="nav" aria-label="Navigare principală">
           <Link to="/">Probleme</Link>
           <Link to="/despre">Despre</Link>
         </nav>
