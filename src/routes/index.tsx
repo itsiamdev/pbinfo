@@ -3,10 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { ProblemCard } from "@/components/ProblemCard";
-import { PROBLEMS, type Difficulty, CATEGORIES } from "@/data/problems";
 import { CodeBlock } from "@/components/CodeBlock";
+import { getProblems } from "@/lib/problems.functions";
 
 export const Route = createFileRoute("/")({
+  loader: async () => ({
+    problems: await getProblems(),
+  }),
   head: () => ({
     meta: [
       { title: "Rezolvări PbInfo — Soluții C++ explicate" },
@@ -38,13 +41,22 @@ int main() {
 }`;
 
 function Home() {
+  const { problems } = Route.useLoaderData();
+  const categories = useMemo(
+    () => ["Toate", ...problems.map((problem) => problem.category)] as const,
+    [problems],
+  );
+  const uniqueCategories = useMemo(
+    () => [...new Set(categories)] as readonly (string | "Toate")[],
+    [categories],
+  );
   const [query, setQuery] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty | "all">("all");
   const [category, setCategory] = useState<string>("Toate");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return PROBLEMS.filter((p) => {
+    return problems.filter((p) => {
       if (difficulty !== "all" && p.difficulty !== difficulty) return false;
       if (category !== "Toate" && p.category !== category) return false;
       if (!q) return true;
@@ -54,7 +66,7 @@ function Home() {
         p.category.toLowerCase().includes(q)
       );
     });
-  }, [query, difficulty, category]);
+  }, [problems, query, difficulty, category]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">

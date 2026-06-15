@@ -1,5 +1,6 @@
 export type Difficulty = "usor" | "mediu" | "greu";
 export type Category =
+  | "Aritmetică"
   | "Vectori"
   | "Matrice"
   | "Sortări"
@@ -32,6 +33,7 @@ export const DIFFICULTY_META: Record<
 };
 
 export const CATEGORIES: { name: Category; description: string }[] = [
+  { name: "Aritmetică", description: "Operații simple, expresii, împărțiri, sume și calcule directe." },
   { name: "Vectori", description: "Operații pe șiruri de elemente, parcurgeri, prelucrări." },
   { name: "Matrice", description: "Tablouri bidimensionale, parcurgeri pe linii și coloane." },
   { name: "Sortări", description: "Algoritmi de ordonare: bubble, selection, merge, quick." },
