@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ProblemCard from './ProblemCard'
 import './ProblemsSection.css'
 
@@ -258,6 +258,35 @@ function ProblemsSection() {
     setSearchQuery('')
   }
 
+  const slides = useMemo(() => {
+    const size = 3
+    return Array.from({ length: Math.ceil(problems.length / size) }, (_, index) => (
+      problems.slice(index * size, index * size + size)
+    ))
+  }, [])
+
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(current => (current + 1) % slides.length)
+    }, 3500)
+
+    return () => clearInterval(interval)
+  }, [slides.length])
+
+  const goToSlide = index => {
+    setCurrentSlide(index)
+  }
+
+  const goToPreviousSlide = () => {
+    setCurrentSlide(current => (current - 1 + slides.length) % slides.length)
+  }
+
+  const goToNextSlide = () => {
+    setCurrentSlide(current => (current + 1) % slides.length)
+  }
+
   return (
     <section className="problems-section">
       <div className="container">
@@ -310,6 +339,55 @@ function ProblemsSection() {
           </div>
         </div>
 
+        <div className="carousel-section" aria-label="Carusel de probleme">
+          <div className="carousel-heading">
+            <div>
+              <span className="section-kicker">Carusel animat</span>
+              <h2>Probleme recomandate</h2>
+            </div>
+            <div className="carousel-controls">
+              <button type="button" onClick={goToPreviousSlide} aria-label="Problema anterioară">‹</button>
+              <button type="button" onClick={goToNextSlide} aria-label="Problema următoare">›</button>
+            </div>
+          </div>
+
+          <div className="carousel-viewport">
+            <div
+              className="carousel-track"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {slides.map((slide, slideIndex) => (
+                <div className="carousel-slide" key={slideIndex}>
+                  {slide.map(problem => (
+                    <button
+                      type="button"
+                      className="carousel-problem-card"
+                      key={problem.number}
+                      onClick={() => document.getElementById(`problem-${problem.number}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                    >
+                      <span className="carousel-number">#{problem.number}</span>
+                      <h3>{problem.title}</h3>
+                      <p>{problem.filename}</p>
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="carousel-dots" aria-label="Pagina curentă">
+            {slides.map((_, index) => (
+              <button
+                type="button"
+                key={index}
+                className={index === currentSlide ? 'active' : ''}
+                onClick={() => goToSlide(index)}
+                aria-label={`Mergi la grupa ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="problems-grid">
           {filteredProblems.length === 0 ? (
             <div className="no-results">
@@ -320,11 +398,12 @@ function ProblemsSection() {
             </div>
           ) : (
             filteredProblems.map((problem, idx) => (
-              <ProblemCard
-                key={problem.number}
-                problem={problem}
-                index={idx}
-              />
+              <div id={`problem-${problem.number}`} className="problem-scroll-target" key={problem.number}>
+                <ProblemCard
+                  problem={problem}
+                  index={idx}
+                />
+              </div>
             ))
           )}
         </div>
