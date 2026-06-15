@@ -4,14 +4,21 @@ import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
-import { getProblem, PROBLEMS } from "@/data/problems";
 import { useBookmarks } from "@/lib/bookmarks";
+import { getProblems } from "@/lib/problems.functions";
 
 export const Route = createFileRoute("/problema/$id")({
-  loader: ({ params }) => {
-    const problem = getProblem(Number(params.id));
+  loader: async ({ params }) => {
+    const id = Number(params.id);
+    const problems = await getProblems();
+    const problem = problems.find((candidate) => candidate.id === id);
     if (!problem) throw notFound();
-    return { problem };
+
+    const related = problems
+      .filter((candidate) => candidate.category === problem.category && candidate.id !== id)
+      .slice(0, 3);
+
+    return { problem, related };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
@@ -39,7 +46,7 @@ export const Route = createFileRoute("/problema/$id")({
 });
 
 function ProblemPage() {
-  const { problem } = Route.useLoaderData();
+  const { problem, related } = Route.useLoaderData();
   const { has, toggle } = useBookmarks();
   const [likes, setLikes] = useState(problem.likes);
   const [liked, setLiked] = useState(false);
@@ -168,11 +175,7 @@ function ProblemPage() {
             Probleme similare
           </h2>
           <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-3">
-            {PROBLEMS.filter(
-              (p) => p.category === problem.category && p.id !== problem.id,
-            )
-              .slice(0, 3)
-              .map((p) => (
+            {related.map((p) => (
                 <Link
                   key={p.id}
                   to="/problema/$id"

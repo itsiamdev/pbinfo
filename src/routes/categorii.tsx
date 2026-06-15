@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
-import { CATEGORIES, PROBLEMS } from "@/data/problems";
+import { CATEGORIES } from "@/data/problems";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
+import { getProblems } from "@/lib/problems.functions";
 
 export const Route = createFileRoute("/categorii")({
+  loader: async () => ({
+    problems: await getProblems(),
+  }),
   head: () => ({
     meta: [
       { title: "Categorii — Rezolvări PbInfo" },
@@ -18,6 +22,12 @@ export const Route = createFileRoute("/categorii")({
 });
 
 function CategoriiPage() {
+  const { problems } = Route.useLoaderData();
+  const categories = CATEGORIES.map((cat) => ({
+    ...cat,
+    problems: problems.filter((problem) => problem.category === cat.name),
+  })).filter((cat) => cat.problems.length > 0);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -39,19 +49,18 @@ function CategoriiPage() {
 
       <main className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((cat) => {
-            const problems = PROBLEMS.filter((p) => p.category === cat.name);
+          {categories.map((cat) => {
             return (
               <section key={cat.name} className="bg-background p-6">
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-lg font-bold text-foreground">{cat.name}</h2>
                   <span className="font-mono text-xs text-muted-foreground">
-                    {problems.length} probleme
+                    {cat.problems.length} probleme
                   </span>
                 </div>
                 <p className="mb-5 text-sm text-muted-foreground">{cat.description}</p>
                 <ul className="space-y-2">
-                  {problems.slice(0, 4).map((p) => (
+                  {cat.problems.slice(0, 4).map((p) => (
                     <li key={p.id}>
                       <Link
                         to="/problema/$id"
@@ -70,7 +79,7 @@ function CategoriiPage() {
                       </Link>
                     </li>
                   ))}
-                  {problems.length === 0 && (
+                  {cat.problems.length === 0 && (
                     <li className="text-xs italic text-muted-foreground">
                       În curând...
                     </li>

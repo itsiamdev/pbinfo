@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { ProblemCard } from "@/components/ProblemCard";
 import { CodeBlock } from "@/components/CodeBlock";
+import type { Difficulty } from "@/data/problems";
 import { getProblems } from "@/lib/problems.functions";
 
 export const Route = createFileRoute("/")({
@@ -40,8 +41,18 @@ int main() {
     return 0;
 }`;
 
+function normalizeSearch(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 function Home() {
   const { problems } = Route.useLoaderData();
+  const [query, setQuery] = useState("");
+  const [difficulty, setDifficulty] = useState<Difficulty | "all">("all");
+  const [category, setCategory] = useState<string>("Toate");
   const categories = useMemo(
     () => ["Toate", ...problems.map((problem) => problem.category)] as const,
     [problems],
@@ -50,21 +61,16 @@ function Home() {
     () => [...new Set(categories)] as readonly (string | "Toate")[],
     [categories],
   );
-  const [query, setQuery] = useState("");
-  const [difficulty, setDifficulty] = useState<Difficulty | "all">("all");
-  const [category, setCategory] = useState<string>("Toate");
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeSearch(query.trim());
     return problems.filter((p) => {
       if (difficulty !== "all" && p.difficulty !== difficulty) return false;
       if (category !== "Toate" && p.category !== category) return false;
       if (!q) return true;
-      return (
-        p.title.toLowerCase().includes(q) ||
-        String(p.id).includes(q) ||
-        p.category.toLowerCase().includes(q)
-      );
+      return normalizeSearch(
+        `${p.id} ${p.title} ${p.slug} ${p.category} ${p.statement} ${p.code}`,
+      ).includes(q);
     });
   }, [problems, query, difficulty, category]);
 
@@ -95,7 +101,7 @@ function Home() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Caută după ID sau titlu (ex: #102)..."
+                  placeholder="Caută după ID, titlu, categorie sau cod..."
                   className="w-full rounded-lg border border-border bg-accent/30 py-4 pl-11 pr-4 font-medium text-foreground transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
               </div>
@@ -142,7 +148,7 @@ function Home() {
           </div>
 
           <div className="-mx-1 flex items-center gap-1 overflow-x-auto pb-2">
-            {(["Toate", ...CATEGORIES.map((c) => c.name)] as const).map((c) => {
+            {uniqueCategories.map((c) => {
               const active = category === c;
               return (
                 <button
