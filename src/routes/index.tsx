@@ -87,8 +87,7 @@ function Home() {
                 Pentru clasele 9–12
               </div>
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-balance md:text-5xl lg:text-6xl">
-                Soluții clare pentru{" "}
-                <span className="text-primary">succes</span> la Informatică.
+                Rezolvări <span className="text-primary">probleme si exerciții </span>la informatică
               </h1>
               <p className="mb-8 text-pretty text-lg leading-relaxed text-muted-foreground">
                 Rezolvări C++ optimizate pentru problemele de pe pbinfo.ro,

@@ -14,7 +14,7 @@ export function Navbar() {
               <Code2 className="size-4" />
             </span>
             <span className="text-lg font-extrabold tracking-tight">
-              REZOLVĂRI <span className="text-primary">PBINFO</span>
+              Rezolvări <span className="text-primary">pbinfo</span>
             </span>
           </Link>
           <div className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
