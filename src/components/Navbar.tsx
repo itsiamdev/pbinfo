@@ -34,11 +34,11 @@ export function Navbar() {
               Categorii
             </Link>
             <Link
-              to="/trimite"
+              to="/raspunsuri"
               activeProps={{ className: "text-foreground" }}
               className="transition-colors hover:text-foreground"
             >
-              Trimite Soluție
+              Răspunsuri
             </Link>
           </div>
         </div>

@@ -9,14 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TrimiteRouteImport } from './routes/trimite'
+import { Route as RaspunsuriRouteImport } from './routes/raspunsuri'
 import { Route as CategoriiRouteImport } from './routes/categorii'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProblemaIdRouteImport } from './routes/problema.$id'
 
-const TrimiteRoute = TrimiteRouteImport.update({
-  id: '/trimite',
-  path: '/trimite',
+const RaspunsuriRoute = RaspunsuriRouteImport.update({
+  id: '/raspunsuri',
+  path: '/raspunsuri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriiRoute = CategoriiRouteImport.update({
@@ -38,44 +38,44 @@ const ProblemaIdRoute = ProblemaIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
-  '/trimite': typeof TrimiteRoute
+  '/raspunsuri': typeof RaspunsuriRoute
   '/problema/$id': typeof ProblemaIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
-  '/trimite': typeof TrimiteRoute
+  '/raspunsuri': typeof RaspunsuriRoute
   '/problema/$id': typeof ProblemaIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
-  '/trimite': typeof TrimiteRoute
+  '/raspunsuri': typeof RaspunsuriRoute
   '/problema/$id': typeof ProblemaIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/categorii' | '/trimite' | '/problema/$id'
+  fullPaths: '/' | '/categorii' | '/raspunsuri' | '/problema/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/categorii' | '/trimite' | '/problema/$id'
-  id: '__root__' | '/' | '/categorii' | '/trimite' | '/problema/$id'
+  to: '/' | '/categorii' | '/raspunsuri' | '/problema/$id'
+  id: '__root__' | '/' | '/categorii' | '/raspunsuri' | '/problema/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriiRoute: typeof CategoriiRoute
-  TrimiteRoute: typeof TrimiteRoute
+  RaspunsuriRoute: typeof RaspunsuriRoute
   ProblemaIdRoute: typeof ProblemaIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/trimite': {
-      id: '/trimite'
-      path: '/trimite'
-      fullPath: '/trimite'
-      preLoaderRoute: typeof TrimiteRouteImport
+    '/raspunsuri': {
+      id: '/raspunsuri'
+      path: '/raspunsuri'
+      fullPath: '/raspunsuri'
+      preLoaderRoute: typeof RaspunsuriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categorii': {
@@ -105,7 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriiRoute: CategoriiRoute,
-  TrimiteRoute: TrimiteRoute,
+  RaspunsuriRoute: RaspunsuriRoute,
   ProblemaIdRoute: ProblemaIdRoute,
 }
 export const routeTree = rootRouteImport

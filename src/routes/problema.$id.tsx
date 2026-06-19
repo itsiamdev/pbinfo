@@ -82,9 +82,7 @@ function ProblemPage() {
               <Clock className="size-3" /> {problem.complexity}
             </span>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
-            {problem.title}
-          </h1>
+          <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">{problem.title}</h1>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               onClick={handleLike}
@@ -161,10 +159,10 @@ function ProblemPage() {
         <section className="mb-12 rounded-xl border border-dashed border-border bg-accent/20 p-6">
           <h2 className="mb-2 text-sm font-bold text-foreground">Comentarii</h2>
           <p className="text-sm text-muted-foreground">
-            Comentariile vor fi disponibile după activarea autentificării. Vrei să propui
-            o variantă mai bună?{" "}
-            <Link to="/trimite" className="font-medium text-primary hover:underline">
-              Trimite-ne soluția ta →
+            Comentariile și răspunsurile vor fi disponibile în curând. Vrei să vezi explicații și
+            variante alternative?{" "}
+            <Link to="/raspunsuri" className="font-medium text-primary hover:underline">
+              Mergi la Răspunsuri →
             </Link>
           </p>
         </section>
@@ -176,21 +174,19 @@ function ProblemPage() {
           </h2>
           <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-3">
             {related.map((p) => (
-                <Link
-                  key={p.id}
-                  to="/problema/$id"
-                  params={{ id: String(p.id) }}
-                  className="block bg-background p-5 hover:bg-accent/40"
-                >
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-primary">
-                      #{p.id}
-                    </span>
-                    <DifficultyBadge difficulty={p.difficulty} />
-                  </div>
-                  <p className="font-bold text-foreground">{p.title}</p>
-                </Link>
-              ))}
+              <Link
+                key={p.id}
+                to="/problema/$id"
+                params={{ id: String(p.id) }}
+                className="block bg-background p-5 hover:bg-accent/40"
+              >
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-primary">#{p.id}</span>
+                  <DifficultyBadge difficulty={p.difficulty} />
+                </div>
+                <p className="font-bold text-foreground">{p.title}</p>
+              </Link>
+            ))}
           </div>
         </section>
       </article>

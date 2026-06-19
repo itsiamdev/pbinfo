@@ -41,8 +41,8 @@ function CategoriiPage() {
             Categorii de probleme
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            Probleme organizate pe tematică, de la noțiuni de bază la algoritmi avansați
-            de bacalaureat și olimpiadă.
+            Probleme organizate pe tematică, de la noțiuni de bază la algoritmi avansați de
+            bacalaureat și olimpiadă.
           </p>
         </div>
       </header>
@@ -68,21 +68,15 @@ function CategoriiPage() {
                         className="flex items-center justify-between gap-3 rounded-md border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-accent/50"
                       >
                         <div className="flex min-w-0 items-center gap-3">
-                          <span className="font-mono text-xs text-primary">
-                            #{p.id}
-                          </span>
-                          <span className="truncate font-medium text-foreground">
-                            {p.title}
-                          </span>
+                          <span className="font-mono text-xs text-primary">#{p.id}</span>
+                          <span className="truncate font-medium text-foreground">{p.title}</span>
                         </div>
                         <DifficultyBadge difficulty={p.difficulty} />
                       </Link>
                     </li>
                   ))}
                   {cat.problems.length === 0 && (
-                    <li className="text-xs italic text-muted-foreground">
-                      În curând...
-                    </li>
+                    <li className="text-xs italic text-muted-foreground">În curând...</li>
                   )}
                 </ul>
               </section>

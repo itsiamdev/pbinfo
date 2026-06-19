@@ -90,8 +90,9 @@ function Home() {
                 Rezolvări <span className="text-primary">probleme si exerciții </span>la informatică
               </h1>
               <p className="mb-8 text-pretty text-lg leading-relaxed text-muted-foreground">
-                Rezolvări C++ optimizate pentru problemele de pe pbinfo.ro,
-                explicate linie cu linie pentru elevii de liceu.
+                // eslint-disable-next-line prettier/prettier // eslint-disable-next-line
+                prettier/prettier Rezolvări C++ optimizate pentru problemele de pe
+                pbinfo.ro,explicate linie cu linie pentru elevii de liceu.
               </p>
 
               <div className="relative max-w-md">
@@ -125,9 +126,18 @@ function Home() {
             {(["all", "usor", "mediu", "greu"] as const).map((d) => {
               const labels = {
                 all: { label: "Toate", on: "border-foreground bg-foreground text-background" },
-                usor: { label: "Ușor", on: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300" },
-                mediu: { label: "Mediu", on: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300" },
-                greu: { label: "Greu", on: "border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300" },
+                usor: {
+                  label: "Ușor",
+                  on: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300",
+                },
+                mediu: {
+                  label: "Mediu",
+                  on: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300",
+                },
+                greu: {
+                  label: "Greu",
+                  on: "border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300",
+                },
               };
               const active = difficulty === d;
               return (
@@ -208,9 +218,15 @@ function Footer() {
           </span>
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          <Link to="/categorii" className="hover:text-foreground">Categorii</Link>
-          <Link to="/trimite" className="hover:text-foreground">Contribuie</Link>
-          <a href="#" className="hover:text-foreground">Termeni</a>
+          <Link to="/categorii" className="hover:text-foreground">
+            Categorii
+          </Link>
+          <Link to="/raspunsuri" className="hover:text-foreground">
+            Răspunsuri
+          </Link>
+          <a href="#" className="hover:text-foreground">
+            Termeni
+          </a>
         </div>
       </div>
     </footer>
