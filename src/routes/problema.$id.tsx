@@ -156,13 +156,16 @@ function ProblemPage() {
         </section>
 
         {/* Comentarii placeholder */}
-        <section className="mb-12 rounded-xl border border-dashed border-border bg-accent/20 p-6">
-          <h2 className="mb-2 text-sm font-bold text-foreground">Comentarii</h2>
+        <section className="mb-12 rounded-xl border border-border bg-accent/30 p-6">
+          <h2 className="mb-2 text-sm font-bold text-foreground">Răspuns</h2>
           <p className="text-sm text-muted-foreground">
-            Comentariile și răspunsurile vor fi disponibile în curând. Vrei să vezi explicații și
-            variante alternative?{" "}
-            <Link to="/raspunsuri" className="font-medium text-primary hover:underline">
-              Mergi la Răspunsuri →
+            Vrei să vezi explicații și variante alternative?{" "}
+            <Link
+              to="/raspunsuri/$id"
+              params={{ id: String(problem.id) }}
+              className="font-medium text-primary hover:underline"
+            >
+              Vezi răspunsul →
             </Link>
           </p>
         </section>
