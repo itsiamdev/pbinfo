@@ -50,12 +50,14 @@ export function Navbar() {
           >
             {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>
-          <button className="hidden rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary sm:block">
-            Autentificare
-          </button>
-          <button className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-all hover:opacity-90">
-            Cont Nou
-          </button>
+          <Link
+            to="/contribuie"
+            aria-label="Contribuie"
+            activeProps={{ className: "text-foreground" }}
+            className="transition-colors hover:text-foreground"
+          >
+            Contribuie
+          </Link>
         </div>
       </div>
     </nav>

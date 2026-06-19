@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RaspunsuriRouteImport } from './routes/raspunsuri'
+import { Route as ContribuieRouteImport } from './routes/contribuie'
 import { Route as CategoriiRouteImport } from './routes/categorii'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RaspunsuriIdRouteImport } from './routes/raspunsuri.$id'
@@ -18,6 +19,11 @@ import { Route as ProblemaIdRouteImport } from './routes/problema.$id'
 const RaspunsuriRoute = RaspunsuriRouteImport.update({
   id: '/raspunsuri',
   path: '/raspunsuri',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContribuieRoute = ContribuieRouteImport.update({
+  id: '/contribuie',
+  path: '/contribuie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriiRoute = CategoriiRouteImport.update({
@@ -44,6 +50,7 @@ const ProblemaIdRoute = ProblemaIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
+  '/contribuie': typeof ContribuieRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
+  '/contribuie': typeof ContribuieRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
+  '/contribuie': typeof ContribuieRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
@@ -68,15 +77,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/categorii'
+    | '/contribuie'
     | '/raspunsuri'
     | '/problema/$id'
     | '/raspunsuri/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/categorii' | '/raspunsuri' | '/problema/$id' | '/raspunsuri/$id'
+  to:
+    | '/'
+    | '/categorii'
+    | '/contribuie'
+    | '/raspunsuri'
+    | '/problema/$id'
+    | '/raspunsuri/$id'
   id:
     | '__root__'
     | '/'
     | '/categorii'
+    | '/contribuie'
     | '/raspunsuri'
     | '/problema/$id'
     | '/raspunsuri/$id'
@@ -85,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriiRoute: typeof CategoriiRoute
+  ContribuieRoute: typeof ContribuieRoute
   RaspunsuriRoute: typeof RaspunsuriRouteWithChildren
   ProblemaIdRoute: typeof ProblemaIdRoute
 }
@@ -96,6 +114,13 @@ declare module '@tanstack/react-router' {
       path: '/raspunsuri'
       fullPath: '/raspunsuri'
       preLoaderRoute: typeof RaspunsuriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contribuie': {
+      id: '/contribuie'
+      path: '/contribuie'
+      fullPath: '/contribuie'
+      preLoaderRoute: typeof ContribuieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categorii': {
@@ -144,6 +169,7 @@ const RaspunsuriRouteWithChildren = RaspunsuriRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriiRoute: CategoriiRoute,
+  ContribuieRoute: ContribuieRoute,
   RaspunsuriRoute: RaspunsuriRouteWithChildren,
   ProblemaIdRoute: ProblemaIdRoute,
 }

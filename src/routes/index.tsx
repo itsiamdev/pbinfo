@@ -90,7 +90,6 @@ function Home() {
                 Rezolvări <span className="text-primary">probleme si exerciții </span>la informatică
               </h1>
               <p className="mb-8 text-pretty text-lg leading-relaxed text-muted-foreground">
-                // eslint-disable-next-line prettier/prettier // eslint-disable-next-line
                 prettier/prettier Rezolvări C++ optimizate pentru problemele de pe
                 pbinfo.ro,explicate linie cu linie pentru elevii de liceu.
               </p>
