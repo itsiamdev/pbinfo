@@ -1,0 +1,93 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+
+export const Route = createFileRoute("/dezvoltator")({
+  head: () => ({
+    meta: [
+      { title: "Dezvoltator — Rezolvări PbInfo" },
+      {
+        name: "description",
+        content:
+          "Informații despre dezvoltatorul platformei Rezolvări PbInfo și modul de contact.",
+      },
+    ],
+  }),
+  component: DezvoltatorPage,
+});
+
+function DezvoltatorPage() {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <Navbar />
+      <main className="mx-auto max-w-3xl px-6 py-16">
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          ← Înapoi
+        </Link>
+
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
+          Dezvoltator
+        </h1>
+        <p className="mt-4 text-sm text-muted-foreground">Ultima actualizare: 20 iunie 2026</p>
+
+        <div className="mt-10 flex flex-col items-center">
+          <img
+            src="/eu.jpg"
+            alt="Dezvoltator"
+            className="h-48 w-48 rounded-full border border-border object-cover"
+          />
+        </div>
+
+        <div className="mt-10 space-y-8 leading-relaxed text-foreground/90">
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Despre proiect</h2>
+            <p className="mt-3">
+              Rezolvări PbInfo este o platformă educațională dedicată elevilor de liceu, care oferă
+              rezolvări C++ explicate pentru probleme de pe pbinfo.ro. Scopul principal este să
+              faciliteze înțelegerea algoritmilor și structurilor de date.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Tehnologii folosite</h2>
+            <ul className="mt-3 list-disc space-y-2 pl-6">
+              <li>React + TypeScript</li>
+              <li>TanStack Router</li>
+              <li>Tailwind CSS</li>
+              <li>Lucide React (iconițe)</li>
+              <li>Prism / highlight.js (sintaxă cod)</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Contact</h2>
+            <p className="mt-3">
+              Pentru sugestii, contribuții sau raportări de erori, ne poți contacta la:{" "}
+              <a
+                href="mailto:contact@pbinfo.example"
+                className="text-primary hover:underline"
+              >
+                contact@pbinfo.example
+              </a>
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Contribuie</h2>
+            <p className="mt-3">
+              Dacă vrei să ajuți, vizitează pagina de{" "}
+              <Link to="/contribuie" className="text-primary hover:underline">
+                Contribuie
+              </Link>{" "}
+              și trimite-ne proposări.
+            </p>
+          </section>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}

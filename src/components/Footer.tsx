@@ -22,18 +22,18 @@ function Footer() {
             <Link to="/raspunsuri" className="hover:text-foreground">
               Răspunsuri
             </Link>
-            <a href="#" className="hover:text-foreground">
+            <Link to="/dezvoltator" className="hover:text-foreground">
               Dezvoltator
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-6 text-xs text-muted-foreground">
-          <a href="#" className="hover:text-foreground">
+          <Link to="/politica-de-confidentialitate" className="hover:text-foreground">
             Politică de confidențialitate
-          </a>
-          <a href="#" className="hover:text-foreground">
+          </Link>
+          <Link to="/termeni-si-conditii" className="hover:text-foreground">
             Termeni și condiții
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

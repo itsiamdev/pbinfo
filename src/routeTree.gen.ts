@@ -9,16 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 import { Route as RaspunsuriRouteImport } from './routes/raspunsuri'
+import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
+import { Route as DezvoltatorRouteImport } from './routes/dezvoltator'
 import { Route as ContribuieRouteImport } from './routes/contribuie'
 import { Route as CategoriiRouteImport } from './routes/categorii'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RaspunsuriIdRouteImport } from './routes/raspunsuri.$id'
 import { Route as ProblemaIdRouteImport } from './routes/problema.$id'
 
+const TermeniSiConditiiRoute = TermeniSiConditiiRouteImport.update({
+  id: '/termeni-si-conditii',
+  path: '/termeni-si-conditii',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RaspunsuriRoute = RaspunsuriRouteImport.update({
   id: '/raspunsuri',
   path: '/raspunsuri',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeConfidentialitateRoute =
+  PoliticaDeConfidentialitateRouteImport.update({
+    id: '/politica-de-confidentialitate',
+    path: '/politica-de-confidentialitate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DezvoltatorRoute = DezvoltatorRouteImport.update({
+  id: '/dezvoltator',
+  path: '/dezvoltator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContribuieRoute = ContribuieRouteImport.update({
@@ -51,7 +70,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
   '/contribuie': typeof ContribuieRoute
+  '/dezvoltator': typeof DezvoltatorRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
 }
@@ -59,7 +81,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
   '/contribuie': typeof ContribuieRoute
+  '/dezvoltator': typeof DezvoltatorRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
 }
@@ -68,7 +93,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/categorii': typeof CategoriiRoute
   '/contribuie': typeof ContribuieRoute
+  '/dezvoltator': typeof DezvoltatorRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/raspunsuri': typeof RaspunsuriRouteWithChildren
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/problema/$id': typeof ProblemaIdRoute
   '/raspunsuri/$id': typeof RaspunsuriIdRoute
 }
@@ -78,7 +106,10 @@ export interface FileRouteTypes {
     | '/'
     | '/categorii'
     | '/contribuie'
+    | '/dezvoltator'
+    | '/politica-de-confidentialitate'
     | '/raspunsuri'
+    | '/termeni-si-conditii'
     | '/problema/$id'
     | '/raspunsuri/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -86,7 +117,10 @@ export interface FileRouteTypes {
     | '/'
     | '/categorii'
     | '/contribuie'
+    | '/dezvoltator'
+    | '/politica-de-confidentialitate'
     | '/raspunsuri'
+    | '/termeni-si-conditii'
     | '/problema/$id'
     | '/raspunsuri/$id'
   id:
@@ -94,7 +128,10 @@ export interface FileRouteTypes {
     | '/'
     | '/categorii'
     | '/contribuie'
+    | '/dezvoltator'
+    | '/politica-de-confidentialitate'
     | '/raspunsuri'
+    | '/termeni-si-conditii'
     | '/problema/$id'
     | '/raspunsuri/$id'
   fileRoutesById: FileRoutesById
@@ -103,17 +140,41 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriiRoute: typeof CategoriiRoute
   ContribuieRoute: typeof ContribuieRoute
+  DezvoltatorRoute: typeof DezvoltatorRoute
+  PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   RaspunsuriRoute: typeof RaspunsuriRouteWithChildren
+  TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
   ProblemaIdRoute: typeof ProblemaIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termeni-si-conditii': {
+      id: '/termeni-si-conditii'
+      path: '/termeni-si-conditii'
+      fullPath: '/termeni-si-conditii'
+      preLoaderRoute: typeof TermeniSiConditiiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/raspunsuri': {
       id: '/raspunsuri'
       path: '/raspunsuri'
       fullPath: '/raspunsuri'
       preLoaderRoute: typeof RaspunsuriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-confidentialitate': {
+      id: '/politica-de-confidentialitate'
+      path: '/politica-de-confidentialitate'
+      fullPath: '/politica-de-confidentialitate'
+      preLoaderRoute: typeof PoliticaDeConfidentialitateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dezvoltator': {
+      id: '/dezvoltator'
+      path: '/dezvoltator'
+      fullPath: '/dezvoltator'
+      preLoaderRoute: typeof DezvoltatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contribuie': {
@@ -170,7 +231,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriiRoute: CategoriiRoute,
   ContribuieRoute: ContribuieRoute,
+  DezvoltatorRoute: DezvoltatorRoute,
+  PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   RaspunsuriRoute: RaspunsuriRouteWithChildren,
+  TermeniSiConditiiRoute: TermeniSiConditiiRoute,
   ProblemaIdRoute: ProblemaIdRoute,
 }
 export const routeTree = rootRouteImport
