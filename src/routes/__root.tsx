@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Rezolvări PbInfo — Soluții C++ explicate pas cu pas" },
+      { title: "Rezolvări pbinfo" },
       {
         name: "description",
         content:
@@ -99,6 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap",
       },
+      { rel: "icon", href: "/image.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
