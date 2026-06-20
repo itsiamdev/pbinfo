@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { getProblems } from "@/lib/problems.functions";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/raspunsuri/$id")({
   loader: async ({ params }) => {
@@ -106,6 +107,7 @@ function AnswerPage() {
           <CodeBlock code={problem.code} />
         </section>
       </article>
+      <Footer />
     </div>
   );
 }

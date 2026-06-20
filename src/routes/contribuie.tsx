@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/contribuie")({
   head: () => ({
@@ -47,6 +48,7 @@ function ContribuiePage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

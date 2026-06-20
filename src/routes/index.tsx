@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { ProblemCard } from "@/components/ProblemCard";
 import { CodeBlock } from "@/components/CodeBlock";
 import type { Difficulty } from "@/data/problems";
@@ -201,33 +202,5 @@ function Home() {
 
       <Footer />
     </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="border-t border-border py-12">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
-        <div className="flex flex-col gap-2">
-          <span className="text-lg font-extrabold tracking-tight">
-            REZOLVĂRI <span className="text-primary">PBINFO</span>
-          </span>
-          <span className="text-xs text-muted-foreground">
-            Platformă educațională pentru elevii de liceu • {new Date().getFullYear()}
-          </span>
-        </div>
-        <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          <Link to="/categorii" className="hover:text-foreground">
-            Categorii
-          </Link>
-          <Link to="/raspunsuri" className="hover:text-foreground">
-            Răspunsuri
-          </Link>
-          <a href="#" className="hover:text-foreground">
-            Termeni
-          </a>
-        </div>
-      </div>
-    </footer>
   );
 }

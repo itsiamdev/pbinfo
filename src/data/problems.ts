@@ -23,17 +23,17 @@ export interface Problem {
   likes: number;
 }
 
-export const DIFFICULTY_META: Record<
-  Difficulty,
-  { label: string; color: string }
-> = {
+export const DIFFICULTY_META: Record<Difficulty, { label: string; color: string }> = {
   usor: { label: "Ușor", color: "emerald" },
   mediu: { label: "Mediu", color: "amber" },
   greu: { label: "Greu", color: "rose" },
 };
 
 export const CATEGORIES: { name: Category; description: string }[] = [
-  { name: "Aritmetică", description: "Operații simple, expresii, împărțiri, sume și calcule directe." },
+  {
+    name: "Aritmetică",
+    description: "Operații simple, expresii, împărțiri, sume și calcule directe.",
+  },
   { name: "Vectori", description: "Operații pe șiruri de elemente, parcurgeri, prelucrări." },
   { name: "Matrice", description: "Tablouri bidimensionale, parcurgeri pe linii și coloane." },
   { name: "Sortări", description: "Algoritmi de ordonare: bubble, selection, merge, quick." },
@@ -51,8 +51,7 @@ export const PROBLEMS: Problem[] = [
     title: "Suma Cifrelor",
     difficulty: "usor",
     category: "Cifre",
-    statement:
-      "Se citește un număr natural n (n ≤ 10^18). Să se afișeze suma cifrelor lui n.",
+    statement: "Se citește un număr natural n (n ≤ 10^18). Să se afișeze suma cifrelor lui n.",
     explanation: [
       "Extragem ultima cifră a lui n folosind operatorul modulo: n % 10.",
       "O adunăm într-o variabilă s inițializată cu 0.",
@@ -83,8 +82,7 @@ int main() {
     title: "Maxim și Minim",
     difficulty: "usor",
     category: "Vectori",
-    statement:
-      "Se citesc n numere întregi. Să se afișeze valoarea maximă și valoarea minimă.",
+    statement: "Se citesc n numere întregi. Să se afișeze valoarea maximă și valoarea minimă.",
     explanation: [
       "Inițializăm maximul cu cea mai mică valoare posibilă și minimul cu cea mai mare.",
       "Pentru fiecare element citit, actualizăm maximul/minimul dacă este cazul.",
@@ -148,8 +146,7 @@ int main() {
     title: "Sortare prin Interschimbare",
     difficulty: "usor",
     category: "Sortări",
-    statement:
-      "Se citesc n numere. Să se ordoneze crescător folosind metoda bubble sort.",
+    statement: "Se citesc n numere. Să se ordoneze crescător folosind metoda bubble sort.",
     explanation: [
       "Comparăm fiecare pereche de elemente vecine și le interschimbăm dacă nu sunt în ordine.",
       "Parcurgem vectorul de n-1 ori; la fiecare trecere, cel mai mare element ajunge la final.",
@@ -256,8 +253,7 @@ int main() {
     title: "Numerele Fibonacci",
     difficulty: "mediu",
     category: "Recursivitate",
-    statement:
-      "Se dă un număr natural n. Să se afișeze al n-lea termen din șirul lui Fibonacci.",
+    statement: "Se dă un număr natural n. Să se afișeze al n-lea termen din șirul lui Fibonacci.",
     explanation: [
       "Definiție: F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2).",
       "Recursivitatea pură este exponențială — folosim iterație cu doi termeni precedenți.",
@@ -322,8 +318,7 @@ int main() {
     title: "Anagrame",
     difficulty: "mediu",
     category: "String-uri",
-    statement:
-      "Se citesc două cuvinte s1 și s2. Să se afișeze DA dacă sunt anagrame, NU altfel.",
+    statement: "Se citesc două cuvinte s1 și s2. Să se afișeze DA dacă sunt anagrame, NU altfel.",
     explanation: [
       "Două cuvinte sunt anagrame dacă au aceleași litere cu aceleași frecvențe.",
       "Sortăm ambele cuvinte alfabetic; sunt anagrame ⇔ devin egale după sortare.",
@@ -403,8 +398,7 @@ int main() {
     title: "Sortare prin Interclasare",
     difficulty: "greu",
     category: "Sortări",
-    statement:
-      "Se citesc n numere. Să se sorteze crescător folosind algoritmul Merge Sort.",
+    statement: "Se citesc n numere. Să se sorteze crescător folosind algoritmul Merge Sort.",
     explanation: [
       "Divide: împărțim vectorul în două jumătăți egale.",
       "Stăpânește (recurs): sortăm recursiv fiecare jumătate.",

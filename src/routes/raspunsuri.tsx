@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { CATEGORIES } from "@/data/problems";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { getProblems } from "@/lib/problems.functions";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/raspunsuri")({
   loader: async () => ({
@@ -46,6 +47,46 @@ function RăspunsuriPage() {
           </p>
         </div>
       </header>
+
+      <main className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+          {categories.map((cat) => {
+            return (
+              <section key={cat.name} className="bg-background p-6">
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-lg font-bold text-foreground">{cat.name}</h2>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {cat.problems.length} probleme
+                  </span>
+                </div>
+                <p className="mb-5 text-sm text-muted-foreground">{cat.description}</p>
+                <ul className="space-y-2">
+                  {cat.problems.slice(0, 4).map((p) => (
+                    <li key={p.id}>
+                      <Link
+                        to="/raspunsuri/$id"
+                        params={{ id: String(p.id) }}
+                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-accent/50"
+                      >
+                        <div className="flex min-w-0 items-center gap-3">
+                          <span className="font-mono text-xs text-primary">#{p.id}</span>
+                          <span className="truncate font-medium text-foreground">{p.title}</span>
+                        </div>
+                        <DifficultyBadge difficulty={p.difficulty} />
+                      </Link>
+                    </li>
+                  ))}
+                  {cat.problems.length === 0 && (
+                    <li className="text-xs italic text-muted-foreground">În curând...</li>
+                  )}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

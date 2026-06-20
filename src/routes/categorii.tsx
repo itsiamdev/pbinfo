@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { CATEGORIES } from "@/data/problems";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { getProblems } from "@/lib/problems.functions";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/categorii")({
   loader: async () => ({
@@ -84,6 +85,7 @@ function CategoriiPage() {
           })}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

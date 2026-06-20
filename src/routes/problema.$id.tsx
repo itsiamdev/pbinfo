@@ -6,6 +6,7 @@ import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { useBookmarks } from "@/lib/bookmarks";
 import { getProblems } from "@/lib/problems.functions";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/problema/$id")({
   loader: async ({ params }) => {
@@ -193,6 +194,7 @@ function ProblemPage() {
           </div>
         </section>
       </article>
+      <Footer />
     </div>
   );
 }
