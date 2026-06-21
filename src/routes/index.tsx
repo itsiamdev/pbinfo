@@ -5,12 +5,11 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProblemCard } from "@/components/ProblemCard";
 import { CodeBlock } from "@/components/CodeBlock";
-import type { Difficulty } from "@/data/problems";
-import { getProblems } from "@/lib/problems.functions";
+import { getProblems, type Difficulty, type Problem } from "@/data/problems";
 
 export const Route = createFileRoute("/")({
-  loader: async () => ({
-    problems: await getProblems(),
+  loader: (): { problems: Problem[] } => ({
+    problems: getProblems(),
   }),
   head: () => ({
     meta: [
@@ -50,7 +49,7 @@ function normalizeSearch(value: string) {
 }
 
 function Home() {
-  const { problems } = Route.useLoaderData();
+  const { problems } = Route.useLoaderData() as { problems: Problem[] };
   const [query, setQuery] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty | "all">("all");
   const [category, setCategory] = useState<string>("Toate");

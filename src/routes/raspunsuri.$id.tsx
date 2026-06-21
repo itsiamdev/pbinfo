@@ -3,13 +3,13 @@ import { ArrowLeft, Clock, Tag } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
-import { getProblems } from "@/lib/problems.functions";
+import { getProblems, type Problem } from "@/data/problems";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/raspunsuri/$id")({
-  loader: async ({ params }) => {
+  loader: ({ params }): { problem: Problem } => {
     const id = Number(params.id);
-    const problems = await getProblems();
+    const problems = getProblems();
     const problem = problems.find((candidate) => candidate.id === id);
     if (!problem) throw notFound();
 
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/raspunsuri/$id")({
 });
 
 function AnswerPage() {
-  const { problem } = Route.useLoaderData();
+  const { problem } = Route.useLoaderData() as { problem: Problem };
 
   return (
     <div className="min-h-screen bg-background text-foreground">

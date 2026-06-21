@@ -1,7 +1,21 @@
+<<<<<<< HEAD
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   tanstackStart: {
     ssr: false, // 👈 IMPORTANT
+=======
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import path from "path";
+
+export default defineConfig({
+  plugins: [TanStackRouterVite({ quoteStyle: "double" }), react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 });

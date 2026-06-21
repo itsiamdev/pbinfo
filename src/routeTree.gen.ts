@@ -8,132 +8,132 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
-import { Route as RaspunsuriRouteImport } from './routes/raspunsuri'
-import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
-import { Route as DezvoltatorRouteImport } from './routes/dezvoltator'
-import { Route as ContribuieRouteImport } from './routes/contribuie'
-import { Route as CategoriiRouteImport } from './routes/categorii'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as RaspunsuriIdRouteImport } from './routes/raspunsuri.$id'
-import { Route as ProblemaIdRouteImport } from './routes/problema.$id'
+import { Route as rootRouteImport } from "./routes/__root"
+import { Route as TermeniSiConditiiRouteImport } from "./routes/termeni-si-conditii"
+import { Route as RaspunsuriRouteImport } from "./routes/raspunsuri"
+import { Route as PoliticaDeConfidentialitateRouteImport } from "./routes/politica-de-confidentialitate"
+import { Route as DezvoltatorRouteImport } from "./routes/dezvoltator"
+import { Route as ContribuieRouteImport } from "./routes/contribuie"
+import { Route as CategoriiRouteImport } from "./routes/categorii"
+import { Route as IndexRouteImport } from "./routes/index"
+import { Route as RaspunsuriIdRouteImport } from "./routes/raspunsuri.$id"
+import { Route as ProblemaIdRouteImport } from "./routes/problema.$id"
 
 const TermeniSiConditiiRoute = TermeniSiConditiiRouteImport.update({
-  id: '/termeni-si-conditii',
-  path: '/termeni-si-conditii',
+  id: "/termeni-si-conditii",
+  path: "/termeni-si-conditii",
   getParentRoute: () => rootRouteImport,
 } as any)
 const RaspunsuriRoute = RaspunsuriRouteImport.update({
-  id: '/raspunsuri',
-  path: '/raspunsuri',
+  id: "/raspunsuri",
+  path: "/raspunsuri",
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoliticaDeConfidentialitateRoute =
   PoliticaDeConfidentialitateRouteImport.update({
-    id: '/politica-de-confidentialitate',
-    path: '/politica-de-confidentialitate',
+    id: "/politica-de-confidentialitate",
+    path: "/politica-de-confidentialitate",
     getParentRoute: () => rootRouteImport,
   } as any)
 const DezvoltatorRoute = DezvoltatorRouteImport.update({
-  id: '/dezvoltator',
-  path: '/dezvoltator',
+  id: "/dezvoltator",
+  path: "/dezvoltator",
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContribuieRoute = ContribuieRouteImport.update({
-  id: '/contribuie',
-  path: '/contribuie',
+  id: "/contribuie",
+  path: "/contribuie",
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriiRoute = CategoriiRouteImport.update({
-  id: '/categorii',
-  path: '/categorii',
+  id: "/categorii",
+  path: "/categorii",
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const RaspunsuriIdRoute = RaspunsuriIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
+  id: "/$id",
+  path: "/$id",
   getParentRoute: () => RaspunsuriRoute,
 } as any)
 const ProblemaIdRoute = ProblemaIdRouteImport.update({
-  id: '/problema/$id',
-  path: '/problema/$id',
+  id: "/problema/$id",
+  path: "/problema/$id",
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/categorii': typeof CategoriiRoute
-  '/contribuie': typeof ContribuieRoute
-  '/dezvoltator': typeof DezvoltatorRoute
-  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
-  '/raspunsuri': typeof RaspunsuriRouteWithChildren
-  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
-  '/problema/$id': typeof ProblemaIdRoute
-  '/raspunsuri/$id': typeof RaspunsuriIdRoute
+  "/": typeof IndexRoute
+  "/categorii": typeof CategoriiRoute
+  "/contribuie": typeof ContribuieRoute
+  "/dezvoltator": typeof DezvoltatorRoute
+  "/politica-de-confidentialitate": typeof PoliticaDeConfidentialitateRoute
+  "/raspunsuri": typeof RaspunsuriRouteWithChildren
+  "/termeni-si-conditii": typeof TermeniSiConditiiRoute
+  "/problema/$id": typeof ProblemaIdRoute
+  "/raspunsuri/$id": typeof RaspunsuriIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/categorii': typeof CategoriiRoute
-  '/contribuie': typeof ContribuieRoute
-  '/dezvoltator': typeof DezvoltatorRoute
-  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
-  '/raspunsuri': typeof RaspunsuriRouteWithChildren
-  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
-  '/problema/$id': typeof ProblemaIdRoute
-  '/raspunsuri/$id': typeof RaspunsuriIdRoute
+  "/": typeof IndexRoute
+  "/categorii": typeof CategoriiRoute
+  "/contribuie": typeof ContribuieRoute
+  "/dezvoltator": typeof DezvoltatorRoute
+  "/politica-de-confidentialitate": typeof PoliticaDeConfidentialitateRoute
+  "/raspunsuri": typeof RaspunsuriRouteWithChildren
+  "/termeni-si-conditii": typeof TermeniSiConditiiRoute
+  "/problema/$id": typeof ProblemaIdRoute
+  "/raspunsuri/$id": typeof RaspunsuriIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/categorii': typeof CategoriiRoute
-  '/contribuie': typeof ContribuieRoute
-  '/dezvoltator': typeof DezvoltatorRoute
-  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
-  '/raspunsuri': typeof RaspunsuriRouteWithChildren
-  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
-  '/problema/$id': typeof ProblemaIdRoute
-  '/raspunsuri/$id': typeof RaspunsuriIdRoute
+  "/": typeof IndexRoute
+  "/categorii": typeof CategoriiRoute
+  "/contribuie": typeof ContribuieRoute
+  "/dezvoltator": typeof DezvoltatorRoute
+  "/politica-de-confidentialitate": typeof PoliticaDeConfidentialitateRoute
+  "/raspunsuri": typeof RaspunsuriRouteWithChildren
+  "/termeni-si-conditii": typeof TermeniSiConditiiRoute
+  "/problema/$id": typeof ProblemaIdRoute
+  "/raspunsuri/$id": typeof RaspunsuriIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/categorii'
-    | '/contribuie'
-    | '/dezvoltator'
-    | '/politica-de-confidentialitate'
-    | '/raspunsuri'
-    | '/termeni-si-conditii'
-    | '/problema/$id'
-    | '/raspunsuri/$id'
+    | "/"
+    | "/categorii"
+    | "/contribuie"
+    | "/dezvoltator"
+    | "/politica-de-confidentialitate"
+    | "/raspunsuri"
+    | "/termeni-si-conditii"
+    | "/problema/$id"
+    | "/raspunsuri/$id"
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/categorii'
-    | '/contribuie'
-    | '/dezvoltator'
-    | '/politica-de-confidentialitate'
-    | '/raspunsuri'
-    | '/termeni-si-conditii'
-    | '/problema/$id'
-    | '/raspunsuri/$id'
+    | "/"
+    | "/categorii"
+    | "/contribuie"
+    | "/dezvoltator"
+    | "/politica-de-confidentialitate"
+    | "/raspunsuri"
+    | "/termeni-si-conditii"
+    | "/problema/$id"
+    | "/raspunsuri/$id"
   id:
-    | '__root__'
-    | '/'
-    | '/categorii'
-    | '/contribuie'
-    | '/dezvoltator'
-    | '/politica-de-confidentialitate'
-    | '/raspunsuri'
-    | '/termeni-si-conditii'
-    | '/problema/$id'
-    | '/raspunsuri/$id'
+    | "__root__"
+    | "/"
+    | "/categorii"
+    | "/contribuie"
+    | "/dezvoltator"
+    | "/politica-de-confidentialitate"
+    | "/raspunsuri"
+    | "/termeni-si-conditii"
+    | "/problema/$id"
+    | "/raspunsuri/$id"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -147,68 +147,68 @@ export interface RootRouteChildren {
   ProblemaIdRoute: typeof ProblemaIdRoute
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/termeni-si-conditii': {
-      id: '/termeni-si-conditii'
-      path: '/termeni-si-conditii'
-      fullPath: '/termeni-si-conditii'
+    "/termeni-si-conditii": {
+      id: "/termeni-si-conditii"
+      path: "/termeni-si-conditii"
+      fullPath: "/termeni-si-conditii"
       preLoaderRoute: typeof TermeniSiConditiiRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/raspunsuri': {
-      id: '/raspunsuri'
-      path: '/raspunsuri'
-      fullPath: '/raspunsuri'
+    "/raspunsuri": {
+      id: "/raspunsuri"
+      path: "/raspunsuri"
+      fullPath: "/raspunsuri"
       preLoaderRoute: typeof RaspunsuriRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/politica-de-confidentialitate': {
-      id: '/politica-de-confidentialitate'
-      path: '/politica-de-confidentialitate'
-      fullPath: '/politica-de-confidentialitate'
+    "/politica-de-confidentialitate": {
+      id: "/politica-de-confidentialitate"
+      path: "/politica-de-confidentialitate"
+      fullPath: "/politica-de-confidentialitate"
       preLoaderRoute: typeof PoliticaDeConfidentialitateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dezvoltator': {
-      id: '/dezvoltator'
-      path: '/dezvoltator'
-      fullPath: '/dezvoltator'
+    "/dezvoltator": {
+      id: "/dezvoltator"
+      path: "/dezvoltator"
+      fullPath: "/dezvoltator"
       preLoaderRoute: typeof DezvoltatorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contribuie': {
-      id: '/contribuie'
-      path: '/contribuie'
-      fullPath: '/contribuie'
+    "/contribuie": {
+      id: "/contribuie"
+      path: "/contribuie"
+      fullPath: "/contribuie"
       preLoaderRoute: typeof ContribuieRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/categorii': {
-      id: '/categorii'
-      path: '/categorii'
-      fullPath: '/categorii'
+    "/categorii": {
+      id: "/categorii"
+      path: "/categorii"
+      fullPath: "/categorii"
       preLoaderRoute: typeof CategoriiRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
+    "/": {
+      id: "/"
+      path: "/"
+      fullPath: "/"
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/raspunsuri/$id': {
-      id: '/raspunsuri/$id'
-      path: '/$id'
-      fullPath: '/raspunsuri/$id'
+    "/raspunsuri/$id": {
+      id: "/raspunsuri/$id"
+      path: "/$id"
+      fullPath: "/raspunsuri/$id"
       preLoaderRoute: typeof RaspunsuriIdRouteImport
       parentRoute: typeof RaspunsuriRoute
     }
-    '/problema/$id': {
-      id: '/problema/$id'
-      path: '/problema/$id'
-      fullPath: '/problema/$id'
+    "/problema/$id": {
+      id: "/problema/$id"
+      path: "/problema/$id"
+      fullPath: "/problema/$id"
       preLoaderRoute: typeof ProblemaIdRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -240,13 +240,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
