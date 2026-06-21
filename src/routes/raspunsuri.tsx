@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useMatchRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { CATEGORIES, getProblems, type Problem } from "@/data/problems";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
@@ -18,10 +18,21 @@ export const Route = createFileRoute("/raspunsuri")({
       },
     ],
   }),
-  component: RăspunsuriPage,
+  component: RăspunsuriLayout,
 });
 
-function RăspunsuriPage() {
+function RăspunsuriLayout() {
+  const matchRoute = useMatchRoute();
+  const childMatch = matchRoute({ to: "/raspunsuri/$id", fuzzy: true });
+
+  if (childMatch) {
+    return <Outlet />;
+  }
+
+  return <RăspunsuriListPage />;
+}
+
+function RăspunsuriListPage() {
   const { problems } = Route.useLoaderData() as { problems: Problem[] };
   const categories = CATEGORIES.map((cat) => ({
     ...cat,
