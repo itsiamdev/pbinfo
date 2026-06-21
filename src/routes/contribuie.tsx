@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -29,8 +28,7 @@ function ContribuiePage() {
             Contribuie la Rezolvări <span className="text-primary">pbinfo</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Trimite-ne probleme, soluții sau sugestii pentru a îmbunătăți platforma pentru elevii de
-            liceu.
+            Contribuie direct pe GitHub cu idei, probleme și rezolvări pentru a face platforma mai completă și mai utilă pentru comunitatea de elevi.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
@@ -40,10 +38,12 @@ function ContribuiePage() {
               Înapoi la probleme
             </Link>
             <a
-              href="mailto:contact@pbinfo.example"
+              href="https://github.com/itsiamdev/pbinfo"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center justify-center rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
             >
-              Trimite-ne un mesaj
+              Contribuie pe GitHub
             </a>
           </div>
         </div>
