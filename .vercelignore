@@ -1,0 +1,15 @@
+.git
+.gitignore
+README.md
+node_modules
+npm-debug.log
+.env.local
+.env.*.local
+dist
+build
+coverage
+.vscode
+.idea
+*.log
+.DS_Store
+rezolvari pbinfo/*.cpp
