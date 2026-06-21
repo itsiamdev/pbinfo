@@ -5,13 +5,13 @@ import { Navbar } from "@/components/Navbar";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { useBookmarks } from "@/lib/bookmarks";
-import { getProblems } from "@/lib/problems.functions";
+import { getProblems, type Problem } from "@/data/problems";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/problema/$id")({
-  loader: async ({ params }) => {
+  loader: ({ params }): { problem: Problem; related: Problem[] } => {
     const id = Number(params.id);
-    const problems = await getProblems();
+    const problems = getProblems();
     const problem = problems.find((candidate) => candidate.id === id);
     if (!problem) throw notFound();
 
@@ -47,7 +47,10 @@ export const Route = createFileRoute("/problema/$id")({
 });
 
 function ProblemPage() {
-  const { problem, related } = Route.useLoaderData();
+  const { problem, related } = Route.useLoaderData() as {
+    problem: Problem;
+    related: Problem[];
+  };
   const { has, toggle } = useBookmarks();
   const [likes, setLikes] = useState(problem.likes);
   const [liked, setLiked] = useState(false);
