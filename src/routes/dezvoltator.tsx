@@ -45,9 +45,34 @@ function DezvoltatorPage() {
           <section>
             <h2 className="text-xl font-bold text-foreground">Despre proiect</h2>
             <p className="mt-3">
-              Rezolvări PbInfo este o platformă educațională dedicată elevilor de liceu, care oferă
-              rezolvări C++ explicate pentru probleme de pe pbinfo.ro. Scopul principal este să
+              Rezolvări pbInfo este o platformă educațională dedicată elevilor de liceu si gimanaziu, care oferă
+              rezolvări C++ explicate pentru probleme de pe <span className="font-semibold" onClick={() => window.open("https://pbinfo.ro", "_blank")}>
+                pbinfo.ro
+              </span>. Scopul principal este să
               faciliteze înțelegerea algoritmilor și structurilor de date.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Despre mine</h2>
+            <p className="mt-3">
+              Sunt pasionat de programare și dezvoltare web, cu un interes special pentru algoritmi și
+              soluții eficiente în C++. Am construit acest proiect pentru a ajuta elevii să înțeleagă mai bine
+              problemele de pe pbinfo.ro și să găsească rezolvări clare.
+            </p>
+            <p className="mt-3">
+              Îmi place să transform concepte teoretice în explicații practice și să ofer cod ușor de urmărit.
+              Cele mai importante valori ale mele sunt claritatea, consecvența și dorința de a oferi unelte
+              utile pentru învățare.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground">Motivație</h2>
+            <p className="mt-3">
+              Această platformă a pornit din dorința de a sprijini colegii care se pregătesc pentru concursuri
+              și examene. Cred că învățarea devine mai eficientă atunci când exemplele sunt bine structurate și
+              explicate pas cu pas.
             </p>
           </section>
 
@@ -72,6 +97,12 @@ function DezvoltatorPage() {
               >
                 contact@pbinfo.example
               </a>
+            </p>
+            <p className="mt-3">
+              Linkedin: <a href="https://www.linkedin.com/in/username" target="_blank" rel="noreferrer" className="text-primary hover:underline">linkedin.com/in/username</a>
+            </p>
+            <p className="mt-3">
+              GitHub: <a href="https://github.com/username" target="_blank" rel="noreferrer" className="text-primary hover:underline">github.com/username</a>
             </p>
           </section>
 
