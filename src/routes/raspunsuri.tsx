@@ -1,13 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
-import { CATEGORIES } from "@/data/problems";
+import { CATEGORIES, getProblems, type Problem } from "@/data/problems";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
-import { getProblems } from "@/lib/problems.functions";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/raspunsuri")({
-  loader: async () => ({
-    problems: await getProblems(),
+  loader: (): { problems: Problem[] } => ({
+    problems: getProblems(),
   }),
   head: () => ({
     meta: [
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/raspunsuri")({
 });
 
 function RăspunsuriPage() {
-  const { problems } = Route.useLoaderData();
+  const { problems } = Route.useLoaderData() as { problems: Problem[] };
   const categories = CATEGORIES.map((cat) => ({
     ...cat,
     problems: problems.filter((problem) => problem.category === cat.name),

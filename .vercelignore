@@ -12,4 +12,3 @@ coverage
 .idea
 *.log
 .DS_Store
-rezolvari pbinfo/*.cpp
