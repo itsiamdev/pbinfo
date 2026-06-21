@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Github, Linkedin } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -91,19 +92,27 @@ function DezvoltatorPage() {
             <h2 className="text-xl font-bold text-foreground">Contact</h2>
             <p className="mt-3">
               Pentru sugestii, contribuții sau raportări de erori, ne poți contacta la:{" "}
+            </p>
+            <div className="mt-4 flex flex-col gap-3">
               <a
-                href="mailto:contact@pbinfo.example"
-                className="text-primary hover:underline"
+                href="https://www.linkedin.com/in/itsiamdev"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
               >
-                contact@pbinfo.example
+                <Linkedin className="h-5 w-5" />
+                linkedin.com/in/itsiamdev
               </a>
-            </p>
-            <p className="mt-3">
-              Linkedin: <a href="https://www.linkedin.com/in/username" target="_blank" rel="noreferrer" className="text-primary hover:underline">linkedin.com/in/username</a>
-            </p>
-            <p className="mt-3">
-              GitHub: <a href="https://github.com/username" target="_blank" rel="noreferrer" className="text-primary hover:underline">github.com/username</a>
-            </p>
+              <a
+                href="https://github.com/itsiamdev"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                <Github className="h-5 w-5" />
+                github.com/itsiamdev
+              </a>
+            </div>
           </section>
 
           <section>
