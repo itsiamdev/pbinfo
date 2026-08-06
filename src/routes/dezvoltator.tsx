@@ -53,6 +53,16 @@ function DezvoltatorPage() {
               >
                 pbinfo
               </a>
+              .Aceasta platforma a fost creată cu scopul de{" "}
+              <a
+                href="https://ionitaaurelmihai.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-blue-500"
+              >
+                {" "}
+                Ioniță Aurel Mihai{" "}
+              </a>{" "}
               . Scopul principal este să faciliteze înțelegerea algoritmilor și structurilor de
               date.
             </p>
