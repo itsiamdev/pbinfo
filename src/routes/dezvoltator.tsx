@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Globe } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -109,6 +109,15 @@ function DezvoltatorPage() {
               >
                 <Github className="h-5 w-5" />
                 github.com/itsiamdev
+              </a>
+              <a
+                href="https://itsiamdev.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                <Globe className="h-5 w-5" />
+                itsiamdev.com
               </a>
             </div>
           </section>
