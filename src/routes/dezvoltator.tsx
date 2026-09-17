@@ -43,37 +43,35 @@ function DezvoltatorPage() {
           <section>
             <h2 className="text-xl font-bold text-foreground">Despre proiect</h2>
             <p className="mt-3">
-              Rezolvări pbInfo este o platformă educațională dedicată elevilor de liceu si
-              gimanaziu, care oferă rezolvări C++ explicate pentru probleme de pe{" "}
+              Rezolvări PbInfo este o platformă educațională pentru elevii de gimnaziu și liceu. Aici
+              găsești soluții C++ explicate pentru problemele și exercițiile de pe{" "}
               <a
                 href="https://www.pbinfo.ro"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-blue-500"
               >
-                pbinfo
+                pbinfo.ro
               </a>
-              .Aceasta platforma a fost creată cu intenția mea{" "}
+              . Proiectul este creat și întreținut de{" "}
               <a
                 href="https://itsiamdev.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-blue-500"
               >
-                {" "}
-                Ioniță Aurel Mihai{" "}
+                Ioniță Aurel Mihai
               </a>{" "}
-              . Scopul principal este să faciliteze înțelegerea algoritmilor și structurilor de
-              date.
+              și are ca scop să facă algoritmii și structurile de date mai ușor de înțeles.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-foreground">Misiune</h2>
             <p className="mt-3">
-              Această platformă a pornit din dorința de a sprijini colegii care se pregătesc pentru
-              concursuri și examene. Cred că învățarea devine mai eficientă atunci când exemplele
-              sunt bine structurate și explicate pas cu pas.
+              Am început acest proiect din dorința de a-i ajuta pe elevii care se pregătesc pentru
+              ore, examene sau concursuri. Cred că învățarea este mai ușoară atunci când soluțiile
+              sunt clare, bine structurate și explicate pas cu pas.
             </p>
           </section>
 
@@ -81,7 +79,7 @@ function DezvoltatorPage() {
             <h2 className="text-xl font-bold text-foreground">Tehnologii folosite</h2>
             <ul className="mt-3 list-disc space-y-2 pl-6">
               <li>React + TypeScript</li>
-              <li>TanStack Router</li>
+              <li>Git + GitHub</li>
               <li>Tailwind CSS</li>
             </ul>
           </section>
@@ -89,7 +87,8 @@ function DezvoltatorPage() {
           <section>
             <h2 className="text-xl font-bold text-foreground">Contact</h2>
             <p className="mt-3">
-              Pentru sugestii, contribuții sau raportări de erori, ne poți contacta la:{" "}
+              Pentru sugestii, contribuții sau raportarea unei erori, îmi poți scrie folosind unul
+              dintre următoarele canale:
             </p>
             <div className="mt-4 flex flex-col gap-3">
               <a
@@ -125,11 +124,11 @@ function DezvoltatorPage() {
           <section>
             <h2 className="text-xl font-bold text-foreground">Contribuie</h2>
             <p className="mt-3">
-              Dacă vrei să ajuți, vizitează pagina de{" "}
+              Dacă vrei să ajuți proiectul, vizitează pagina{" "}
               <Link to="/contribuie" className="text-primary hover:underline">
                 Contribuie
               </Link>{" "}
-              și trimite-ne proposări.
+              pentru a trimite idei, soluții sau sugestii.
             </p>
           </section>
         </div>
