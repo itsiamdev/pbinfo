@@ -11,7 +11,7 @@ function Footer() {
               <span className="text-primary">PBINFO</span>
             </span>
             <span className="text-xs text-muted-foreground">
-              Platformă educațională pentru elevii de liceu •{" "}
+              Platformă educațională pentru elevii de liceu care vor să învețe programare •{" "}
               {new Date().getFullYear()}
             </span>
           </div>

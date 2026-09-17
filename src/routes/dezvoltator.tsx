@@ -53,7 +53,7 @@ function DezvoltatorPage() {
               >
                 pbinfo
               </a>
-              .Aceasta platforma a fost creată cu scopul de{" "}
+              .Aceasta platforma a fost creată cu intenția mea{" "}
               <a
                 href="https://ionitaaurelmihai.vercel.app/"
                 target="_blank"
