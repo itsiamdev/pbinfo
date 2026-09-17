@@ -29,7 +29,7 @@ function DezvoltatorPage() {
         </Link>
 
         <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">Dezvoltator</h1>
-        <p className="mt-4 text-sm text-muted-foreground">Ultima actualizare: 20 iunie 2026</p>
+        <p className="mt-4 text-sm text-muted-foreground">Ultima actualizare: 17 septembrie 2026</p>
 
         <div className="mt-10 flex flex-col items-center">
           <img
@@ -55,7 +55,7 @@ function DezvoltatorPage() {
               </a>
               .Aceasta platforma a fost creată cu intenția mea{" "}
               <a
-                href="https://ionitaaurelmihai.vercel.app/"
+                href="https://itsiamdev.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-blue-500"
