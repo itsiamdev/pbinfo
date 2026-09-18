@@ -1,6 +1,9 @@
 export type Difficulty = "usor" | "mediu" | "greu";
 export type Category =
   | "Aritmetică"
+  | "Clasa a 9-a"
+  | "Clasa a 10-a"
+  | "Clasa a 11-a"
   | "Vectori"
   | "Matrice"
   | "Sortări"
@@ -27,6 +30,27 @@ export const DIFFICULTY_META: Record<Difficulty, { label: string; color: string 
   usor: { label: "Ușor", color: "emerald" },
   mediu: { label: "Mediu", color: "amber" },
   greu: { label: "Greu", color: "rose" },
+};
+
+export const CLASS_GROUPS = [
+  {
+    name: "Clasa a 9-a",
+    description: "Probleme de bază pentru pregătirea la informatică în clasa a IX-a.",
+  },
+  {
+    name: "Clasa a 10-a",
+    description: "Exerciții și teme pentru clasa a X-a, cu algoritmi de nivel intermediar.",
+  },
+  {
+    name: "Clasa a 11-a",
+    description: "Probleme avansate și de pregătire pentru clasa a XI-a.",
+  },
+] as const;
+
+export const CATEGORY_BY_CLASS: Record<(typeof CLASS_GROUPS)[number]["name"], Category[]> = {
+  "Clasa a 9-a": ["Aritmetică", "Cifre", "Vectori", "String-uri"],
+  "Clasa a 10-a": ["Matrice", "Sortări", "Căutare", "Recursivitate"],
+  "Clasa a 11-a": ["Grafuri"],
 };
 
 export const CATEGORIES: { name: Category; description: string }[] = [
