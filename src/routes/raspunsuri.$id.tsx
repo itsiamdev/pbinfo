@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Clock, Tag } from "lucide-react";
+import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
@@ -42,6 +43,11 @@ export const Route = createFileRoute("/raspunsuri/$id")({
 
 function AnswerPage() {
   const { problem } = Route.useLoaderData() as { problem: Problem };
+  const [selectedAnswer, setSelectedAnswer] = useState<{
+    problemId: number;
+    optionIndex: number;
+  } | null>(null);
+  const selectedOption = selectedAnswer?.problemId === problem.id ? selectedAnswer.optionIndex : null;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -78,6 +84,61 @@ function AnswerPage() {
             {problem.statement}
           </div>
         </section>
+
+        {problem.quiz && (
+          <section aria-labelledby="quiz-heading" className="mb-12">
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <h2
+                id="quiz-heading"
+                className="text-xs font-bold uppercase tracking-widest text-muted-foreground"
+              >
+                Verifică-ți răspunsul
+              </h2>
+              <span className="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold uppercase text-primary">
+                Exemplu demonstrativ
+              </span>
+            </div>
+            <fieldset className="space-y-3">
+              <legend className="mb-3 text-base font-medium text-foreground">
+                {problem.quiz.prompt}
+              </legend>
+              {problem.quiz.options.map((option, index) => {
+                const isSelected = selectedOption === index;
+                const isCorrect = index === problem.quiz?.correctIndex;
+                const showResult = selectedOption !== null;
+                const optionStyle = showResult && isCorrect
+                  ? "border-emerald-600 bg-emerald-500/10"
+                  : showResult && isSelected
+                    ? "border-destructive bg-destructive/10"
+                    : "border-border hover:bg-accent/50";
+
+                return (
+                  <label
+                    key={option}
+                    className={`flex cursor-pointer items-center gap-3 rounded-md border px-4 py-3 text-sm transition-colors ${optionStyle}`}
+                  >
+                    <input
+                      type="radio"
+                      name={`quiz-${problem.id}`}
+                      value={index}
+                      checked={isSelected}
+                      onChange={() => setSelectedAnswer({ problemId: problem.id, optionIndex: index })}
+                      className="size-4 accent-primary"
+                    />
+                    <span>{String.fromCharCode(65 + index)}. {option}</span>
+                  </label>
+                );
+              })}
+            </fieldset>
+            {selectedOption !== null && (
+              <p role="status" className="mt-3 text-sm font-medium text-foreground">
+                {selectedOption === problem.quiz.correctIndex
+                  ? "Corect!"
+                  : `Nu chiar. Răspunsul corect este ${String.fromCharCode(65 + problem.quiz.correctIndex)}. ${problem.quiz.options[problem.quiz.correctIndex]}.`}
+              </p>
+            )}
+          </section>
+        )}
 
         <section className="mb-12">
           <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">

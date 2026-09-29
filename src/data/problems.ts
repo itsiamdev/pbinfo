@@ -21,6 +21,11 @@ export interface Problem {
   category: Category;
   statement: string;
   explanation: string[];
+  quiz?: {
+    prompt: string;
+    options: string[];
+    correctIndex: number;
+  };
   complexity: string;
   code: string;
   likes: number;
@@ -82,6 +87,11 @@ export const PROBLEMS: Problem[] = [
       "Eliminăm ultima cifră prin împărțire întreagă: n /= 10.",
       "Repetăm până când n devine 0.",
     ],
+    quiz: {
+      prompt: "Pentru n = 5084, ce valoare se afișează?",
+      options: ["17", "584", "18", "0"],
+      correctIndex: 0,
+    },
     complexity: "O(log₁₀ n)",
     likes: 142,
     code: `#include <iostream>
@@ -112,6 +122,11 @@ int main() {
       "Pentru fiecare element citit, actualizăm maximul/minimul dacă este cazul.",
       "Afișăm rezultatul la final.",
     ],
+    quiz: {
+      prompt: "Pentru valorile 7, -2, 4, 9, -5, ce se afișează?",
+      options: ["9 -5", "7 -2", "-5 9", "9 0"],
+      correctIndex: 0,
+    },
     complexity: "O(n)",
     likes: 87,
     code: `#include <iostream>
@@ -146,6 +161,11 @@ int main() {
       "La fiecare pas, înmulțim ogl cu 10 și adăugăm ultima cifră a lui n.",
       "Eliminăm ultima cifră din n. Continuăm până când n devine 0.",
     ],
+    quiz: {
+      prompt: "Pentru n = 1203, ce valoare se afișează?",
+      options: ["3021", "3201", "1203", "3"],
+      correctIndex: 0,
+    },
     complexity: "O(log₁₀ n)",
     likes: 65,
     code: `#include <iostream>
@@ -176,6 +196,11 @@ int main() {
       "Parcurgem vectorul de n-1 ori; la fiecare trecere, cel mai mare element ajunge la final.",
       "Pentru o mică optimizare, ne oprim dacă într-o trecere completă nu am făcut nicio interschimbare.",
     ],
+    quiz: {
+      prompt: "Cum va arăta vectorul [5, 1, 4, 2] după sortarea crescătoare?",
+      options: ["1 2 4 5", "5 4 2 1", "1 4 2 5", "2 1 4 5"],
+      correctIndex: 0,
+    },
     complexity: "O(n²)",
     likes: 198,
     code: `#include <iostream>
