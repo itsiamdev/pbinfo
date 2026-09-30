@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b, x, y1, y2, y;
+    cin >> a >> b;
+
+    for(x = 1; x <= 10000; ++x)
+    {
+        y1 = b * x;
+        y2 = a * x - b;
+
+        if(y2 > 0 && y1 % y2 == 0)
+        {
+            y = y1 / y2;
+            if(x > y)
+                break;
+            cout << x << ' ' << y << '\n';
+        }
+    }
+}
