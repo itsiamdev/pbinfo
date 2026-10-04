@@ -130,21 +130,23 @@ function ProblemPage() {
         </section>
 
         {/* Explicație */}
-        <section className="mb-12">
-          <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            Explicație pas cu pas
-          </h2>
-          <ol className="space-y-4">
-            {problem.explanation.map((step: string, i: number) => (
-              <li key={i} className="flex gap-4">
-                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-bold text-primary">
-                  {i + 1}
-                </span>
-                <p className="pt-0.5 text-base leading-relaxed text-foreground">{step}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
+        {problem.explanation.length > 0 && (
+          <section className="mb-12">
+            <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Explicație pas cu pas
+            </h2>
+            <ol className="space-y-4">
+              {problem.explanation.map((step: string, i: number) => (
+                <li key={i} className="flex gap-4">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                    {i + 1}
+                  </span>
+                  <p className="pt-0.5 text-base leading-relaxed text-foreground">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {/* Cod */}
         <section className="mb-12">
@@ -156,7 +158,13 @@ function ProblemPage() {
               Complexitate: <span className="text-foreground">{problem.complexity}</span>
             </span>
           </div>
-          <CodeBlock code={problem.code} />
+          {problem.code.trim() ? (
+            <CodeBlock code={problem.code} />
+          ) : (
+            <p className="rounded-lg border border-dashed border-border p-5 text-sm text-muted-foreground">
+              Fișierul de rezolvare pentru această problemă este gol.
+            </p>
+          )}
         </section>
 
         {/* Comentarii placeholder */}

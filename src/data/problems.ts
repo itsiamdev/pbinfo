@@ -1,4 +1,6 @@
-export type Difficulty = "usor" | "mediu" | "greu";
+import { SOLUTIONS_BY_ID } from "@/data/solutions";
+
+export type Difficulty = "usor" | "mediu" | "greu" | "nespecificat";
 export type Category =
   | "Aritmetică"
   | "Clasa a 9-a"
@@ -11,7 +13,8 @@ export type Category =
   | "Cifre"
   | "String-uri"
   | "Grafuri"
-  | "Căutare";
+  | "Căutare"
+  | "Arhivă PbInfo";
 
 export interface Problem {
   id: number;
@@ -35,6 +38,7 @@ export const DIFFICULTY_META: Record<Difficulty, { label: string; color: string 
   usor: { label: "Ușor", color: "emerald" },
   mediu: { label: "Mediu", color: "amber" },
   greu: { label: "Greu", color: "rose" },
+  nespecificat: { label: "Nespecificat", color: "slate" },
 };
 
 export const CLASS_GROUPS = [
@@ -50,12 +54,17 @@ export const CLASS_GROUPS = [
     name: "Clasa a 11-a",
     description: "Probleme avansate și de pregătire pentru clasa a XI-a.",
   },
+  {
+    name: "Arhivă PbInfo",
+    description: "Probleme importate din folderul local de rezolvări C++.",
+  },
 ] as const;
 
 export const CATEGORY_BY_CLASS: Record<(typeof CLASS_GROUPS)[number]["name"], Category[]> = {
   "Clasa a 9-a": ["Aritmetică", "Cifre", "Vectori", "String-uri"],
   "Clasa a 10-a": ["Matrice", "Sortări", "Căutare", "Recursivitate"],
   "Clasa a 11-a": ["Grafuri"],
+  "Arhivă PbInfo": ["Arhivă PbInfo"],
 };
 
 export const CATEGORIES: { name: Category; description: string }[] = [
@@ -71,6 +80,10 @@ export const CATEGORIES: { name: Category; description: string }[] = [
   { name: "String-uri", description: "Lucrul cu șiruri de caractere și texte." },
   { name: "Grafuri", description: "Parcurgeri BFS/DFS, drumuri minime, conexitate." },
   { name: "Căutare", description: "Căutare liniară, binară, two-pointers." },
+  {
+    name: "Arhivă PbInfo",
+    description: "Rezolvări C++ din folderul local, organizate după ID-ul problemei.",
+  },
 ];
 
 export const PROBLEMS: Problem[] = [
@@ -832,10 +845,35 @@ int main() {
   },
 ];
 
+const problemIds = new Set(PROBLEMS.map((problem) => problem.id));
+const archiveProblems: Problem[] = [...SOLUTIONS_BY_ID.entries()]
+  .filter(([id]) => !problemIds.has(id))
+  .map(([id, code]) => ({
+    id,
+    slug: `pbinfo-${id}`,
+    title: `Problema #${id}`,
+    difficulty: "nespecificat",
+    category: "Arhivă PbInfo",
+    statement:
+      "Enunțul original nu este inclus în folderul „rezolvari pbinfo”; aici este disponibilă soluția C++.",
+    explanation: [],
+    complexity: "—",
+    code,
+    likes: 0,
+  }));
+
+const ALL_PROBLEMS: Problem[] = [
+  ...PROBLEMS.map((problem) => {
+    const solution = SOLUTIONS_BY_ID.get(problem.id);
+    return solution === undefined ? problem : { ...problem, code: solution };
+  }),
+  ...archiveProblems,
+];
+
 export function getProblems(): Problem[] {
-  return PROBLEMS;
+  return ALL_PROBLEMS;
 }
 
 export function getProblem(id: number): Problem | undefined {
-  return PROBLEMS.find((p) => p.id === id);
+  return ALL_PROBLEMS.find((p) => p.id === id);
 }
