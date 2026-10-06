@@ -7,7 +7,6 @@ import {
   getProblems,
   type Problem,
 } from "@/data/problems";
-import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/categorii")({
@@ -84,13 +83,9 @@ function CategoriiPage() {
                           <Link
                             to="/problema/$id"
                             params={{ id: String(p.id) }}
-                            className="flex items-center justify-between gap-3 rounded-md border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-accent/50"
+                            className="flex items-center gap-3 rounded-md border border-border bg-background px-3 py-2 text-sm transition-colors hover:bg-accent/50"
                           >
-                            <div className="flex min-w-0 items-center gap-3">
-                              <span className="font-mono text-xs text-primary">#{p.id}</span>
-                              <span className="truncate font-medium text-foreground">{p.title}</span>
-                            </div>
-                            <DifficultyBadge difficulty={p.difficulty} />
+                            <span className="font-mono text-xs text-primary">#{p.id}</span>
                           </Link>
                         </li>
                       ))}

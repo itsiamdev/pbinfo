@@ -4,8 +4,7 @@ import { Search } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProblemCard } from "@/components/ProblemCard";
-import { CodeBlock } from "@/components/CodeBlock";
-import { getProblems, type Difficulty, type Problem } from "@/data/problems";
+import { getProblems, type Problem } from "@/data/problems";
 
 export const Route = createFileRoute("/")({
   loader: (): { problems: Problem[] } => ({
@@ -13,33 +12,15 @@ export const Route = createFileRoute("/")({
   }),
   head: () => ({
     meta: [
-      { title: "Rezolvări PbInfo — Soluții C++ explicate" },
+      { title: "Rezolvări PbInfo — Soluții C++" },
       {
         name: "description",
-        content:
-          "Caută probleme de pe pbinfo.ro și vezi rezolvări C++ explicate pas cu pas pentru elevii de liceu.",
+        content: "Soluții C++ pentru probleme PbInfo, afișate după ID.",
       },
     ],
   }),
   component: Home,
 });
-
-const HERO_CODE = `#include <iostream>
-using namespace std;
-
-// Problema #102 — Suma Cifrelor
-int main() {
-    long long n, s = 0;
-    cin >> n;
-
-    while (n > 0) {
-        s += n % 10;
-        n /= 10;
-    }
-
-    cout << s;
-    return 0;
-}`;
 
 function normalizeSearch(value: string) {
   return value
@@ -51,157 +32,110 @@ function normalizeSearch(value: string) {
 function Home() {
   const { problems } = Route.useLoaderData() as { problems: Problem[] };
   const [query, setQuery] = useState("");
-  const [difficulty, setDifficulty] = useState<Difficulty | "all">("all");
-  const [category, setCategory] = useState<string>("Toate");
-  const categories = useMemo(
-    () => ["Toate", ...problems.map((problem) => problem.category)] as const,
-    [problems],
-  );
-  const uniqueCategories = useMemo(
-    () => [...new Set(categories)] as readonly (string | "Toate")[],
-    [categories],
+  const backgroundProblems = problems.slice(0, 16);
+  const backgroundLanes = Array.from({ length: 4 }, (_, laneIndex) =>
+    backgroundProblems.slice(laneIndex * 4, laneIndex * 4 + 4),
   );
 
   const filtered = useMemo(() => {
     const q = normalizeSearch(query.trim());
-    return problems.filter((p) => {
-      if (difficulty !== "all" && p.difficulty !== difficulty) return false;
-      if (category !== "Toate" && p.category !== category) return false;
-      if (!q) return true;
-      return normalizeSearch(
-        `${p.id} ${p.title} ${p.slug} ${p.category} ${p.statement} ${p.code}`,
-      ).includes(q);
-    });
-  }, [problems, query, difficulty, category]);
+    if (!q) return [];
+    return problems.filter((p) => normalizeSearch(`${p.id} ${p.code}`).includes(q)).slice(0, 12);
+  }, [problems, query]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
-      {/* Hero */}
-      <header className="border-b border-border">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <div className="border-border px-6 py-16 lg:border-r lg:py-24">
-            <div className="max-w-xl animate-reveal">
-              <div className="mb-6 inline-flex items-center gap-2 rounded bg-primary/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                Pentru clasele 9–12
-              </div>
-              <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-balance md:text-5xl lg:text-6xl">
-                Rezolvări <span className="text-primary">probleme si exerciții </span>la informatică
-              </h1>
-              <p className="mb-8 text-pretty text-lg leading-relaxed text-muted-foreground">
-                Rezolvări C++ optimizate pentru problemele de pe pbinfo.ro,
-                explicate linie cu linie pentru elevii de liceu.
-              </p>
+      <header className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden border-b border-border">
+        <div className="problem-cloud" aria-hidden="true">
+          {backgroundLanes.map((lane, laneIndex) => {
+            const laneItems = [...lane, ...lane];
+            return (
+              <div className="problem-cloud__lane" key={laneIndex}>
+                {laneItems.map((problem, itemIndex) => {
+                  const snippet =
+                    problem.code
+                      .split("\n")
+                      .find(
+                        (line) =>
+                          line.trim() &&
+                          !line.trim().startsWith("#") &&
+                          !line.trim().startsWith("using") &&
+                          !/^(?:int|void)\s+main\b/.test(line.trim()) &&
+                          !/^(?:return\b|[{}])/.test(line.trim()),
+                      )
+                      ?.trim() ?? "int main()";
 
-              <div className="relative max-w-md">
-                <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Caută după ID, titlu, categorie sau cod..."
-                  className="w-full rounded-lg border border-border bg-accent/30 py-4 pl-11 pr-4 font-medium text-foreground transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                />
+                  return (
+                    <div className="problem-cloud__item" key={`${problem.id}-${itemIndex}`}>
+                      <span>#{problem.id}</span>
+                      <code>{snippet}</code>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-background via-background/65 to-background/15" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-background/15" />
 
-          <div className="flex items-center justify-center bg-accent/30 p-6 lg:p-12">
-            <div className="w-full max-w-2xl animate-reveal [animation-delay:200ms]">
-              <CodeBlock code={HERO_CODE} />
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl items-center px-6 py-16 lg:py-24">
+          <div className="max-w-2xl animate-reveal">
+            <div className="mb-6 inline-flex items-center gap-2 rounded bg-primary/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+              Pentru clasele 9–12
             </div>
+            <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-balance md:text-5xl lg:text-6xl">
+              Rezolvări <span className="text-primary">probleme si exerciții </span>la informatică
+            </h1>
+            <p className="mb-8 text-pretty text-lg leading-relaxed text-muted-foreground">
+              Soluții C++ pentru problemele de pe pbinfo.ro, afișate după ID.
+            </p>
+
+            <div className="relative max-w-md">
+              <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Caută după ID sau cod..."
+                aria-label="Caută soluții după ID sau cod"
+                className="w-full rounded-lg border border-border bg-accent/30 py-4 pl-11 pr-4 font-medium text-foreground transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <Link
+              to="/categorii"
+              className="mt-6 inline-flex items-center gap-2 rounded-md border border-border bg-background/70 px-5 py-2.5 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-accent"
+            >
+              Vezi categoriile →
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Filters & Grid */}
-      <main className="mx-auto max-w-7xl px-6 py-12">
-        <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="mr-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-              Dificultate:
-            </span>
-            {(["all", "usor", "mediu", "greu", "nespecificat"] as const).map((d) => {
-              const labels = {
-                all: { label: "Toate", on: "border-foreground bg-foreground text-background" },
-                usor: {
-                  label: "Ușor",
-                  on: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300",
-                },
-                mediu: {
-                  label: "Mediu",
-                  on: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300",
-                },
-                greu: {
-                  label: "Greu",
-                  on: "border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300",
-                },
-                nespecificat: {
-                  label: "Nespecificat",
-                  on: "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-500/30 dark:bg-slate-500/10 dark:text-slate-300",
-                },
-              };
-              const active = difficulty === d;
-              return (
-                <button
-                  key={d}
-                  onClick={() => setDifficulty(d)}
-                  className={`rounded-full border px-4 py-1.5 text-xs font-bold transition-all ${
-                    active
-                      ? labels[d].on
-                      : "border-border bg-background text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {labels[d].label.toUpperCase()}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="-mx-1 flex items-center gap-1 overflow-x-auto pb-2">
-            {uniqueCategories.map((c) => {
-              const active = category === c;
-              return (
-                <button
-                  key={c}
-                  onClick={() => setCategory(c)}
-                  className={`shrink-0 rounded px-3 py-1 text-xs font-medium transition-colors ${
-                    active
-                      ? "bg-accent text-foreground"
-                      : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                  }`}
-                >
-                  {c}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {filtered.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-border bg-accent/20 px-6 py-20 text-center">
-            <p className="text-sm font-medium text-muted-foreground">
-              Nicio problemă nu corespunde criteriilor.
-            </p>
-          </div>
-        ) : (
-          <div className="grid animate-reveal grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((p) => (
-              <ProblemCard key={p.id} problem={p} />
-            ))}
-          </div>
-        )}
-
-        <div className="mt-12 text-center">
-          <Link
-            to="/categorii"
-            className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
-          >
-            Vezi toate categoriile →
-          </Link>
-        </div>
-      </main>
+      {query.trim() && (
+        <main className="mx-auto max-w-7xl px-6 py-12">
+          {filtered.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border bg-accent/20 px-6 py-16 text-center">
+              <p className="text-sm font-medium text-muted-foreground">
+                Nicio soluție nu corespunde căutării.
+              </p>
+            </div>
+          ) : (
+            <>
+              <p className="mb-6 text-sm text-muted-foreground">
+                {filtered.length === 12 ? "Primele 12 rezultate" : `${filtered.length} rezultate`}
+              </p>
+              <div className="grid animate-reveal grid-cols-1 gap-px border border-border bg-border md:grid-cols-2">
+                {filtered.map((problem) => (
+                  <ProblemCard key={problem.id} problem={problem} />
+                ))}
+              </div>
+            </>
+          )}
+        </main>
+      )}
 
       <Footer />
     </div>

@@ -5,11 +5,10 @@ import { Footer } from "@/components/Footer";
 export const Route = createFileRoute("/raspunsuri")({
   head: () => ({
     meta: [
-      { title: "Răspunsuri — Rezolvări PbInfo" },
+      { title: "Soluții — PbInfo" },
       {
         name: "description",
-        content:
-          "Explorează răspunsurile la probleme C++ pe categorii: vectori, matrice, sortări, recursivitate, grafuri și multe altele.",
+        content: "Soluții C++ pentru probleme PbInfo, identificate după ID.",
       },
     ],
   }),
@@ -38,11 +37,10 @@ function RăspunsuriListPage() {
             Algoritmi
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
-            Răspunsuri la probleme
+            Soluții C++
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            Răspunsuri organizate pe tematică, de la noțiuni de bază la algoritmi avansați de
-            bacalaureat și olimpiadă.
+            Soluțiile sunt afișate doar cu ID-ul problemei, fără enunț.
           </p>
         </div>
       </header>
