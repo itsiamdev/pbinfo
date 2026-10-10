@@ -106,8 +106,14 @@
 .problem-cloud__lane {
   display: flex;
   width: max-content;
-  gap: 1rem;
   animation: problem-drift 48s linear infinite;
+}
+
+.problem-cloud__group {
+  display: flex;
+  flex: none;
+  gap: 1rem;
+  padding-right: 1rem;
 }
 
 .problem-cloud__lane:nth-child(even) {
@@ -151,12 +157,6 @@
   }
   to {
     transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .problem-cloud__lane {
-    animation: none;
   }
 }
 

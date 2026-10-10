@@ -50,30 +50,33 @@ function Home() {
       <header className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden border-b border-border">
         <div className="problem-cloud" aria-hidden="true">
           {backgroundLanes.map((lane, laneIndex) => {
-            const laneItems = [...lane, ...lane];
             return (
               <div className="problem-cloud__lane" key={laneIndex}>
-                {laneItems.map((problem, itemIndex) => {
-                  const snippet =
-                    problem.code
-                      .split("\n")
-                      .find(
-                        (line) =>
-                          line.trim() &&
-                          !line.trim().startsWith("#") &&
-                          !line.trim().startsWith("using") &&
-                          !/^(?:int|void)\s+main\b/.test(line.trim()) &&
-                          !/^(?:return\b|[{}])/.test(line.trim()),
-                      )
-                      ?.trim() ?? "int main()";
+                {[0, 1].map((groupIndex) => (
+                  <div className="problem-cloud__group" key={groupIndex}>
+                    {lane.map((problem) => {
+                      const snippet =
+                        problem.code
+                          .split("\n")
+                          .find(
+                            (line) =>
+                              line.trim() &&
+                              !line.trim().startsWith("#") &&
+                              !line.trim().startsWith("using") &&
+                              !/^(?:int|void)\s+main\b/.test(line.trim()) &&
+                              !/^(?:return\b|[{}])/.test(line.trim()),
+                          )
+                          ?.trim() ?? "int main()";
 
-                  return (
-                    <div className="problem-cloud__item" key={`${problem.id}-${itemIndex}`}>
-                      <span>#{problem.id}</span>
-                      <code>{snippet}</code>
-                    </div>
-                  );
-                })}
+                      return (
+                        <div className="problem-cloud__item" key={problem.id}>
+                          <span>#{problem.id}</span>
+                          <code>{snippet}</code>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             );
           })}
