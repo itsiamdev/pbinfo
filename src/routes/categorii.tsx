@@ -9,6 +9,12 @@ import {
 } from "@/data/problems";
 import { Footer } from "@/components/Footer";
 
+const CLASS_NINE_SECTIONS = [
+  "Operatori și expresii",
+  "Structura de decizie",
+  "Structuri repetitive",
+];
+
 export const Route = createFileRoute("/categorii")({
   loader: (): { problems: Problem[] } => ({
     problems: getProblems(),
@@ -67,6 +73,26 @@ function CategoriiPage() {
 
             <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
               {group.categories.map((cat) => {
+                if (group.name === "Clasa a 9-a" && cat.name === "Aritmetică") {
+                  return (
+                    <section key={cat.name} className="bg-background p-6">
+                      <h3 className="mb-3 text-lg font-bold text-foreground">
+                        Elemente de bază ale limbajului:
+                      </h3>
+                      <ol className="space-y-2">
+                        {CLASS_NINE_SECTIONS.map((section) => (
+                          <li
+                            key={section}
+                            className="rounded-md border border-border bg-background px-3 py-2 text-sm"
+                          >
+                            {section}
+                          </li>
+                        ))}
+                      </ol>
+                    </section>
+                  );
+                }
+
                 const totalProblems = cat.problems.length;
                 return (
                   <section key={cat.name} className="bg-background p-6">
