@@ -10,9 +10,8 @@ int main(){
     
     cin >> n >> k;
     multiplii = n / k;
-    sum += (k * (k - 1) / 2) * multiplii; // [n / k] sume gauss de la 1 la k - 1
-
-    long long dif = n - (multiplii * k + 1) + 1; // 1 suma incompleta: de la 1 la ... (< k - 1)
+    sum += (k * (k - 1) / 2) * multiplii; 
+    long long dif = n - (multiplii * k + 1) + 1;
     sum += (dif * (dif + 1) / 2);
 
     cout << sum;
