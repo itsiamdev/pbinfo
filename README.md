@@ -1,2 +1,0 @@
-Pbinfo
-solutii probleme
